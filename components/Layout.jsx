@@ -1,16 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Head from 'next/head';
-import styled, { ThemeProvider } from 'styled-components';
-import colors from '../shared/colors';
-import theme from '../shared/theme';
+import React from "react";
+// import { Container, Row, Col } from 'react-grid-system';
+import PropTypes from "prop-types";
+import Head from "next/head";
+import { ThemeProvider } from "styled-components";
+import colors from "../shared/colors";
 
-const Wrapper = styled.div`
-  height: 100vh;
-  background-color: ${theme.light};
-`;
+import { BackgroundWrapper, ViewWrapper, NavigationWrapper } from './Wrappers';
 
-const Layout = ({ children, title}) => (
+import Display from './Display';
+
+const Layout = ({ children, title }) => (
   <ThemeProvider theme={colors}>
     <div>
       <Head>
@@ -23,15 +22,26 @@ const Layout = ({ children, title}) => (
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
       </Head>
-      <Wrapper>
-        {children}
-      </Wrapper>
+      <BackgroundWrapper>
+        <Display />
+        <NavigationWrapper>
+          <ul>
+            <li>
+              Home
+            </li>
+          </ul>
+        </NavigationWrapper>
+        <ViewWrapper>
+          {children}
+        </ViewWrapper>
+      </BackgroundWrapper>
     </div>
   </ThemeProvider>
 );
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  // display: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired
 };
 

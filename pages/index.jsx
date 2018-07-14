@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-grid-system';
 import { injectGlobal } from 'styled-components';
 import styledNormalize from 'styled-normalize';
 import theme from '../shared/theme';
@@ -28,7 +27,7 @@ injectGlobal`
     }
     
     ::selection {
-        background-color: ${theme.dark};
+        background-color:  ${theme.dark};
         color: ${theme.light};
     }   
 `;
@@ -36,13 +35,7 @@ injectGlobal`
 export default function IndexPage()  {
   return (
     <Layout title='Whether Weather'>
-      <Container>
-        <Row>
-          <Col>
-          Whether Weather
-          </Col>
-        </Row>
-      </Container>
+      Active view bonded with display component
     </Layout>
   )
 }
