@@ -8,15 +8,25 @@
     "func-names": [
       "error",
       "never"
-    ]
+    ],
+    "no-console": "off"
   },
   "plugins": [
     "react",
     "styled-components-config"
   ],
+  "parser": "babel-eslint",
   "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
     }
+  },
+  "globals": {
+    "window": true,
+    "fetch":false
   }
 }

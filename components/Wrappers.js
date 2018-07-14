@@ -8,6 +8,7 @@ export const BackgroundWrapper = styled.div`
     justify-content: center;
     align-items: center;
     background-color: ${theme.secondaryBlue};
+    overflow: hidden;
 `;
 
 export const ViewWrapper = styled.section`
