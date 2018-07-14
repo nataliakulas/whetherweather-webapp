@@ -14,7 +14,7 @@ export const ViewWrapper = styled.section`
     width: 100%;
     height: 600px;
     position: relative;
-    background-color: ${theme.primaryBlue};  
+    background-color: ${theme.primaryBlue};
     padding: 20px;
 `;
 
@@ -24,6 +24,24 @@ export const NavigationWrapper = styled.header`
     text-align: center;
     background-color: ${theme.tertiaryBlue};
     padding: 20px;
+                   
+    &::before,
+    &::after {
+        content: ' ';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        background-color: ${theme.tertiaryBlue.saturate(0.35)};
+    }
+        
+    &::before {
+        top:-100%;      
+    }
+    
+    &::after {
+        bottom:-100%;
+    }
 `;
 
 export const DisplayWrapper=styled.aside`

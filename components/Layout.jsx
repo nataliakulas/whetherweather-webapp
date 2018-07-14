@@ -2,14 +2,49 @@ import React from "react";
 import { Container, Row, Col } from 'react-grid-system';
 import PropTypes from "prop-types";
 import Head from "next/head";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider, injectGlobal } from "styled-components";
+import styledNormalize from 'styled-normalize';
 import colors from "../shared/colors";
+import theme from '../shared/theme';
+import OpenSansRegular from '../static/fonts/Open_Sans/OpenSans-Regular.ttf';
+import OpenSansBold from '../static/fonts/Open_Sans/OpenSans-Bold.ttf';
 
 import { BackgroundWrapper, ViewWrapper } from './Wrappers';
 
 import Display from './Display';
 import Navigation from './Navigation';
 
+
+injectGlobal`
+   ${styledNormalize}
+   
+    @font-face {
+        font-family: OpenSansRegular;
+        src: url('${OpenSansRegular}') format('truetype');
+    }
+    
+        @font-face {
+        font-family: OpenSansBold;
+        src: url('${OpenSansBold}') format('truetype');
+    }
+   
+    * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+   
+    body {
+        color: ${theme.dark};
+        font-family: OpenSansRegular, sans-serif;
+        font-size: 16px;
+        line-height: 26px;
+    }
+    
+    ::selection {
+        background-color:  ${theme.dark};
+        color: ${theme.light};
+    }   
+`;
 
 const Layout = ({ children, title }) => (
   <ThemeProvider theme={colors}>
@@ -27,13 +62,13 @@ const Layout = ({ children, title }) => (
       <BackgroundWrapper>
         <Container>
           <Row nogutter>
-            <Col xs={12} md={4}>
+            <Col xs={12} md={4} style={{overflow:'visible'}}>
               <Display />
             </Col>
-            <Col xs={12} md={2}>
+            <Col xs={12} md={2} style={{overflow:'visible'}}>
               <Navigation />
             </Col>
-            <Col xs={12} md={6}>
+            <Col xs={12} md={6} style={{overflow:'visible'}}>
               <ViewWrapper>
                 {children}
               </ViewWrapper>
