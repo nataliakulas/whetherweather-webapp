@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "airbnb",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "func-names": [
+      "error",
+      "never"
+    ]
+  },
+  "plugins": [
+    "react",
+    "styled-components-config"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
+}
