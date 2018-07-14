@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import { Container, Row, Col } from 'react-grid-system';
-import PropTypes from "prop-types";
-import Head from "next/head";
-import { ThemeProvider, injectGlobal } from "styled-components";
+import PropTypes from 'prop-types';
+import Head from 'next/head';
+import { ThemeProvider, injectGlobal } from 'styled-components';
 import styledNormalize from 'styled-normalize';
-import colors from "../shared/colors";
+import colors from '../shared/colors';
 import theme from '../shared/theme';
 import OpenSansRegular from '../static/fonts/Open_Sans/OpenSans-Regular.ttf';
 import OpenSansBold from '../static/fonts/Open_Sans/OpenSans-Bold.ttf';
@@ -62,13 +62,13 @@ const Layout = ({ children, title }) => (
       <BackgroundWrapper>
         <Container>
           <Row nogutter>
-            <Col xs={12} md={4} style={{overflow:'visible'}}>
+            <Col xs={12} md={4} style={{ overflow: 'visible' }}>
               <Display />
             </Col>
-            <Col xs={12} md={2} style={{overflow:'visible'}}>
+            <Col xs={12} md={2} style={{ overflow: 'visible' }}>
               <Navigation />
             </Col>
-            <Col xs={12} md={6} style={{overflow:'visible'}}>
+            <Col xs={12} md={6} style={{ overflow: 'visible' }}>
               <ViewWrapper>
                 {children}
               </ViewWrapper>
