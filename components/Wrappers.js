@@ -52,3 +52,18 @@ export const DisplayWrapper=styled.aside`
     background-color: ${theme.light};  
     padding: 20px;
 `;
+
+export const ColumnWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const RowAroundWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+`;
+

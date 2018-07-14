@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
 import { Container, Row, Col } from 'react-grid-system';
-import PropTypes from "prop-types";
-import Head from "next/head";
-import { ThemeProvider, injectGlobal } from "styled-components";
+import PropTypes from 'prop-types';
+import Head from 'next/head';
+import { ThemeProvider, injectGlobal } from 'styled-components';
 import styledNormalize from 'styled-normalize';
-import colors from "../shared/colors";
+import colors from '../shared/colors';
 import theme from '../shared/theme';
 import OpenSansRegular from '../static/fonts/Open_Sans/OpenSans-Regular.ttf';
 import OpenSansBold from '../static/fonts/Open_Sans/OpenSans-Bold.ttf';
+import PoppinsRegular from '../static/fonts/Poppins/Poppins-Regular.ttf';
 
 import { BackgroundWrapper, ViewWrapper } from './Wrappers';
 
@@ -23,9 +24,14 @@ injectGlobal`
         src: url('${OpenSansRegular}') format('truetype');
     }
     
-        @font-face {
+    @font-face {
         font-family: OpenSansBold;
         src: url('${OpenSansBold}') format('truetype');
+    }
+    
+    @font-face {
+        font-family: PoppinsRegular;
+        src: url('${PoppinsRegular}') format('truetype');
     }
    
     * {
@@ -43,7 +49,18 @@ injectGlobal`
     ::selection {
         background-color:  ${theme.dark};
         color: ${theme.light};
+    }
+    
+    h1 {
+       font-family: PoppinsRegular,sans-serif;
+       font-size: 20px;
+       line-height: 30px;
+       margin: 5px auto;
     }   
+    
+    h2 {
+       font-size: 18px
+    }
 `;
 
 const Layout = ({ children, title }) => (
@@ -62,13 +79,13 @@ const Layout = ({ children, title }) => (
       <BackgroundWrapper>
         <Container>
           <Row nogutter>
-            <Col xs={12} md={4} style={{overflow:'visible'}}>
+            <Col xs={12} md={6} style={{ overflow: 'visible' }}>
               <Display />
             </Col>
-            <Col xs={12} md={2} style={{overflow:'visible'}}>
+            <Col xs={12} md={2} style={{ overflow: 'visible' }}>
               <Navigation />
             </Col>
-            <Col xs={12} md={6} style={{overflow:'visible'}}>
+            <Col xs={12} md={4} style={{ overflow: 'visible' }}>
               <ViewWrapper>
                 {children}
               </ViewWrapper>
