@@ -5,9 +5,10 @@ import Head from "next/head";
 import { ThemeProvider } from "styled-components";
 import colors from "../shared/colors";
 
-import { BackgroundWrapper, ViewWrapper, NavigationWrapper } from './Wrappers';
+import { BackgroundWrapper, ViewWrapper } from './Wrappers';
 
 import Display from './Display';
+import Navigation from './Navigation';
 
 const Layout = ({ children, title }) => (
   <ThemeProvider theme={colors}>
@@ -24,13 +25,7 @@ const Layout = ({ children, title }) => (
       </Head>
       <BackgroundWrapper>
         <Display />
-        <NavigationWrapper>
-          <ul>
-            <li>
-              Home
-            </li>
-          </ul>
-        </NavigationWrapper>
+        <Navigation />
         <ViewWrapper>
           {children}
         </ViewWrapper>
@@ -41,7 +36,6 @@ const Layout = ({ children, title }) => (
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  // display: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired
 };
 
