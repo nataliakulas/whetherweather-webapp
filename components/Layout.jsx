@@ -1,5 +1,5 @@
 import React from "react";
-// import { Container, Row, Col } from 'react-grid-system';
+import { Container, Row, Col } from 'react-grid-system';
 import PropTypes from "prop-types";
 import Head from "next/head";
 import { ThemeProvider } from "styled-components";
@@ -9,6 +9,7 @@ import { BackgroundWrapper, ViewWrapper } from './Wrappers';
 
 import Display from './Display';
 import Navigation from './Navigation';
+
 
 const Layout = ({ children, title }) => (
   <ThemeProvider theme={colors}>
@@ -24,11 +25,21 @@ const Layout = ({ children, title }) => (
         />
       </Head>
       <BackgroundWrapper>
-        <Display />
-        <Navigation />
-        <ViewWrapper>
-          {children}
-        </ViewWrapper>
+        <Container>
+          <Row nogutter>
+            <Col xs={12} md={4}>
+              <Display />
+            </Col>
+            <Col xs={12} md={2}>
+              <Navigation />
+            </Col>
+            <Col xs={12} md={6}>
+              <ViewWrapper>
+                {children}
+              </ViewWrapper>
+            </Col>
+          </Row>
+        </Container>
       </BackgroundWrapper>
     </div>
   </ThemeProvider>

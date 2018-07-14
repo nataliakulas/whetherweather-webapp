@@ -11,23 +11,25 @@ export const BackgroundWrapper = styled.div`
 `;
 
 export const ViewWrapper = styled.section`
-    width: 300px;
+    width: 100%;
     height: 600px;
     position: relative;
     background-color: ${theme.primaryBlue};  
+    padding: 20px;
 `;
 
 export const NavigationWrapper = styled.header`
-    width: 100px;
+    width: 100%;
     height: 600px;
     text-align: center;
     background-color: ${theme.tertiaryBlue};
+    padding: 20px;
 `;
 
 export const DisplayWrapper=styled.aside`
-    width: 200px;
+    width: 100%;
     height: 600px;
     position: relative;
     background-color: ${theme.light};  
+    padding: 20px;
 `;
-
