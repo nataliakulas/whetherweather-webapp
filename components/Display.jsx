@@ -80,7 +80,7 @@ class Display extends React.Component {
   };
 
   fetchCurrentWeather = (latitude, longitude) => {
-    console.log(latitude, longitude);
+    // console.log(latitude, longitude);
 
     fetch(getCurrentWeather(latitude, longitude))
       .then((response) => response.json())

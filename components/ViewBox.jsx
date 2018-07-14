@@ -36,7 +36,6 @@ class ViewBox extends React.Component {
   render() {
     const { icon, image, summary, temperature, pressure, humidity, cloudCover, windSpeed, windBearing } = this.props;
     const { loading } = this.state;
-    console.log(windBearing)
 
     if (loading) {
       return (
