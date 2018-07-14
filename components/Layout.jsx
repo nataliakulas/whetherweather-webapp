@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider, injectGlobal } from 'styled-components';
 import styledNormalize from 'styled-normalize';
-import colors from '../shared/colors';
+import colors from "../shared/colors";
 import theme from '../shared/theme';
 import OpenSansRegular from '../static/fonts/Open_Sans/OpenSans-Regular.ttf';
 import OpenSansBold from '../static/fonts/Open_Sans/OpenSans-Bold.ttf';
