@@ -5,7 +5,6 @@ import Head from 'next/head';
 import { ThemeProvider, injectGlobal } from 'styled-components';
 import styledNormalize from 'styled-normalize';
 import colors from '../shared/colors';
-import theme from '../shared/theme';
 import OpenSansRegular from '../static/fonts/Open_Sans/OpenSans-Regular.ttf';
 import OpenSansBold from '../static/fonts/Open_Sans/OpenSans-Bold.ttf';
 import PoppinsRegular from '../static/fonts/Poppins/Poppins-Regular.ttf';
@@ -14,7 +13,6 @@ import { BackgroundWrapper, ViewWrapper } from './Wrappers';
 
 import Display from './Display';
 import Navigation from './Navigation';
-
 
 injectGlobal`
    ${styledNormalize}
@@ -33,23 +31,18 @@ injectGlobal`
         font-family: PoppinsRegular;
         src: url('${PoppinsRegular}') format('truetype');
     }
-   
+ 
     * {
         box-sizing: border-box;
         -webkit-tap-highlight-color: transparent;
     }
    
     body {
-        color: ${theme.dark};
         font-family: OpenSansRegular, sans-serif;
         font-size: 16px;
         line-height: 26px;
     }
-    
-    ::selection {
-        background-color:  ${theme.dark};
-        color: ${theme.light};
-    }
+
     
     h1 {
        font-family: PoppinsRegular,sans-serif;

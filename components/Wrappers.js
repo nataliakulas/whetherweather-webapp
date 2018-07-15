@@ -8,7 +8,8 @@ export const BackgroundWrapper = styled.div`
     justify-content: center;
     align-items: center;
     background-color: ${theme.secondaryBlue};
-    overflow: hidden;
+    color: ${theme.medium};
+    overflow: hidden;           
 `;
 
 export const ViewWrapper = styled.section`
@@ -23,8 +24,7 @@ export const NavigationWrapper = styled.header`
     width: 100%;
     height: 600px;
     text-align: center;
-    background-color: ${theme.tertiaryBlue};
-    padding: 20px;
+    background-color: ${theme.secondaryBlue};
                    
     &::before,
     &::after {
