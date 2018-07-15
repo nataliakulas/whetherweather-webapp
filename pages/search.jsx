@@ -84,30 +84,6 @@ class Search extends React.Component {
             <br />
             {staticData[1]}
           </h1>
-          <PanelWrapper>
-            {capital.length > 0 ? (
-              <Row>
-                <Col>
-                  <p style={{ fontWeight: 'bold', marginTop: 30 }}>
-                    {capital}
-                    &nbsp;in&nbsp;
-                    {country}
-                  </p>
-                  <p>
-                    Coordinates:&nbsp;
-                    <br />
-                    {latitude}
-                    ,&nbsp;
-                    {longitude}
-                  </p>
-                </Col>
-                <Col>
-                  <Image src={flag} alt={country} />
-                </Col>
-              </Row>
-            ) : <div style={{ height: 197 }} />
-            }
-          </PanelWrapper>
           <ColumnWrapper style={{ width: '100%' }}>
             <SelectWrapper>
               <Select
@@ -123,6 +99,30 @@ class Search extends React.Component {
               Check IT!
             </Button>
           </ColumnWrapper>
+          <PanelWrapper>
+            {capital.length > 0 ? (
+              <Row>
+                <Col xs={12} xl={7}>
+                  <p style={{ fontWeight: 'bold', marginTop: 30 }}>
+                    {capital}
+                    &nbsp;in&nbsp;
+                    {country}
+                  </p>
+                  <p>
+                    Coordinates:&nbsp;
+                    <br />
+                    {latitude}
+                    ,&nbsp;
+                    {longitude}
+                  </p>
+                </Col>
+                <Col xs={12} xl={5}>
+                  <Image src={flag} alt={country} />
+                </Col>
+              </Row>
+            ) : <div style={{ height: 166 }} />
+            }
+          </PanelWrapper>
         </ColumnWrapper>
       </Layout>
     );

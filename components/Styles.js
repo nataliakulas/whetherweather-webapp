@@ -54,9 +54,9 @@ export const DisplayWrapper = styled.aside`
 `;
 
 export const PanelWrapper = styled.div`
-  width: 70%;
+  width: 80%;
   height: 200px;
-  margin: 30px auto;
+  margin: 0 auto;
   padding: 20px;
 `;
 
