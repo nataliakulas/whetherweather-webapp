@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Select from 'react-select';
 
 import Layout from '../components/Layout';
-import {ColumnWrapper, SelectWrapper, Button} from '../components/Styles';
+import { ColumnWrapper, SelectWrapper, Button } from '../components/Styles';
 import { SET_CITY_POSITION } from '../state/actions';
 
+const countries = require('capitals-coordinates').eu28();
 
 const mapStateToProps = (state) => ({
   weather: state.weatherState
@@ -17,42 +18,42 @@ const mapDispatchToProps = (dispatch) => ({
   onSetPosition: (latitude, longitude) => dispatch({ type: SET_CITY_POSITION, payload: { latitude, longitude } })
 });
 
-class Search extends  React.Component {
-constructor(props) {
-  super(props);
-  this.state={
-    loading: true,
-    selected:''
-  }
-}
-
-  componentDidMount() {
-  const{loading}=this.state;
-
-  console.log(loading);
-    const { onSetPosition} = this.props;
-        onSetPosition(52.237049, 21.017532);
-
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: ''
+    };
   }
 
   static async getInitialProps() {
-    return {staticData: ['Check the weather.', 'Somewhere else.']}
+    return { staticData: ['Check the weather.', 'Somewhere else.'] };
   }
 
   handleChange = (selected) => {
     this.setState({ selected });
-    // selectedOption can be null when the `x` (close) button is clicked
     if (selected) {
-      console.log(`Selected: ${selected.label}`);
+      const { onSetPosition } = this.props;
+
+      countries.map(country => {
+        if (country.properties.capital === selected.label) {
+          const coordinates = country.geometry.coordinates;
+
+          onSetPosition(coordinates[0], coordinates[1]);
+        }
+      });
     }
   };
 
   render() {
-    const {staticData} = this.props;
-    const {selected}=this.state;
-    //
-    // const lat = weather.latitude;
-    // const lon = weather.longitude;
+    const { staticData } = this.props;
+    const { selected } = this.state;
+
+    const options = [];
+    countries.map(country => {
+        options.push({ value: country.properties.capital, label: country.properties.capital });
+      }
+    );
 
     return (
       <Layout title='Whether Weather'>
@@ -63,22 +64,14 @@ constructor(props) {
           <h2>
             {staticData[1]}
           </h2>
-          <p>
-            {/*{lat}*/}
-          </p>
-          <p>
-            {/*{lon}*/}
-          </p>
           <SelectWrapper>
             <Select
+              disabled={options.length === 0}
               placeholder="Search for city"
               name="select"
               value={selected}
               onChange={this.handleChange}
-              options={[
-            {value:'one', label: 'Odjnge'},
-            {value:'two', label: 'Tqwyo'}
-          ]}
+              options={options}
             />
           </SelectWrapper>
           <Button>
@@ -86,17 +79,16 @@ constructor(props) {
           </Button>
         </ColumnWrapper>
       </Layout>
-    )
+    );
   }
 }
 
 Search.propTypes = {
   staticData: PropTypes.instanceOf(Array).isRequired,
-  // weather: PropTypes.instanceOf(Object).isRequired,
   onSetPosition: PropTypes.func.isRequired
 };
 
 export default compose(
   connect(mapStateToProps),
-  connect(null,mapDispatchToProps)
-)(Search)
+  connect(null, mapDispatchToProps)
+)(Search);
