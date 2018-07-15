@@ -1,110 +1,58 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import PropTypes from 'prop-types';
 
 import { DisplayWrapper } from './Wrappers';
 import ViewBox from './ViewBox';
 
-import getCurrentWeather from '../shared/api';
+import { FETCH_CURRENT_WEATHER_REQUEST } from '../state/actions';
+
+const mapStateToProps = (state) => ({
+  weather: state.weatherState
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchCurrentWeather: (position) => dispatch({ type: FETCH_CURRENT_WEATHER_REQUEST, payload: position })
+});
 
 class Display extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      latitude: 52.237049,
-      longitude: 21.017532,
-      icon: '',
-      image: '/static/images/weather/default.svg',
-      summary: '',
-      temperature: 0,
-      pressure: 0,
-      humidity: 0,
-      cloudCover: 0,
-      windSpeed: 0,
-      windBearing: 0
-    };
-  }
 
   componentDidMount() {
-    const { latitude, longitude } = this.state;
-    const geolocation = window.navigator.geolocation;
-
-    new Promise((resolve) => {
-      if (!geolocation) {
-        window.alert('Gelocation not supported');
-      }
-
-      geolocation.getCurrentPosition((position) => {
-        resolve(position);
-        this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
-        this.fetchCurrentWeather(position.coords.latitude, position.coords.longitude);
-      }, () => {
-        this.fetchCurrentWeather(latitude, longitude);
-      });
-    });
+    const { onFetchCurrentWeather, weather } = this.props;
+    onFetchCurrentWeather(weather);
   }
 
   setImage = (icon) => {
     switch (icon) {
       case 'clear-day':
-        this.setState({ image: '/static/images/weather/clear-day.svg' });
-        break;
+        return '/static/images/weather/clear-day.svg';
       case 'clear-night':
-        this.setState({ image: '/static/images/weather/clear-night.svg' });
-        break;
+        return '/static/images/weather/clear-night.svg';
       case 'rain':
-        this.setState({ image: '/static/images/weather/rain.svg' });
-        break;
+        return '/static/images/weather/rain.svg';
       case 'snow':
-        this.setState({ image: '/static/images/weather/snow.svg' });
-        break;
+        return '/static/images/weather/snow.svg';
       case 'sleet':
-        this.setState({ image: '/static/images/weather/sleet.svg' });
-        break;
+        return '/static/images/weather/sleet.svg';
       case 'wind':
-        this.setState({ image: '/static/images/weather/wind.svg' });
-        break;
+        return '/static/images/weather/wind.svg';
       case 'fog':
-        this.setState({ image: '/static/images/weather/fog.svg' });
-        break;
+        return '/static/images/weather/fog.svg';
       case 'cloudy':
-        this.setState({ image: '/static/images/weather/cloudy.svg' });
-        break;
+        return '/static/images/weather/cloudy.svg';
       case 'partly-cloudy-day':
-        this.setState({ image: '/static/images/weather/partly-cloudy-day.svg' });
-        break;
+        return '/static/images/weather/partly-cloudy-day.svg';
       case 'partly-cloudy-night':
-        this.setState({ image: '/static/images/weather/partly-cloudy-night.svg' });
-        break;
+        return '/static/images/weather/partly-cloudy-night.svg';
       default:
-        this.setState({ image: '/static/images/weather/default.svg' });
+        return '/static/images/weather/default.svg';
     }
   };
 
-  fetchCurrentWeather = (latitude, longitude) => {
-    // console.log(latitude, longitude);
-
-    fetch(getCurrentWeather(latitude, longitude))
-      .then((response) => response.json())
-      .then(response => {
-        this.setImage(response.currently.icon);
-        this.setState({
-          icon: response.currently.icon,
-          summary: response.currently.summary,
-          temperature: Math.round(response.currently.temperature),
-          pressure: Math.round(response.currently.pressure),
-          humidity: response.currently.humidity * 100,
-          cloudCover: response.currently.cloudCover * 100,
-          windSpeed: this.mpsToKph(response.currently.windSpeed),
-          windBearing: response.currently.windBearing
-        });
-      });
-  };
-
-  mpsToKph(mps) {
-    return Math.round(mps * 3.6);
-  }
-
   render() {
-    const { icon, image, summary, temperature, pressure, humidity, cloudCover, windSpeed, windBearing } = this.state;
+    const { weather } = this.props;
+    let image = this.setImage(weather.icon);
 
     return (
       <DisplayWrapper>
@@ -112,19 +60,27 @@ class Display extends React.Component {
           Current weather. Whether it&apos;s good or bad.
         </h1>
         <ViewBox
-          icon={icon}
+          icon={weather.icon}
           image={image}
-          summary={summary}
-          temperature={temperature}
-          pressure={pressure}
-          humidity={humidity}
-          cloudCover={cloudCover}
-          windSpeed={windSpeed}
-          windBearing={windBearing}
+          summary={weather.summary}
+          temperature={weather.temperature}
+          pressure={weather.pressure}
+          humidity={weather.humidity}
+          cloudCover={weather.cloudCover}
+          windSpeed={weather.windSpeed}
+          windBearing={weather.windBearing}
         />
       </DisplayWrapper>
     );
   }
 }
 
-export default Display;
+Display.propTypes = {
+  weather: PropTypes.instanceOf(Object).isRequired,
+  onFetchCurrentWeather: PropTypes.func.isRequired
+};
+
+export default compose(
+  connect(mapStateToProps),
+  connect(null, mapDispatchToProps)
+)(Display);
