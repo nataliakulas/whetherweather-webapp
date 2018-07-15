@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import {ColumnWrapper, RowAroundWrapper} from './Wrappers';
+import {ColumnWrapper, RowAroundWrapper} from './Styles';
 
 const Image = styled.img`
     width: 100px;

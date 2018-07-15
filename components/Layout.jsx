@@ -9,7 +9,7 @@ import OpenSansRegular from '../static/fonts/Open_Sans/OpenSans-Regular.ttf';
 import OpenSansBold from '../static/fonts/Open_Sans/OpenSans-Bold.ttf';
 import PoppinsRegular from '../static/fonts/Poppins/Poppins-Regular.ttf';
 
-import { BackgroundWrapper, ViewWrapper } from './Wrappers';
+import { BackgroundWrapper, ViewWrapper } from './Styles';
 
 import Display from './Display';
 import Navigation from './Navigation';
@@ -70,15 +70,15 @@ const Layout = ({ children, title }) => (
         />
       </Head>
       <BackgroundWrapper>
-        <Container>
+        <Container style={{width:'100%'}}>
           <Row nogutter>
-            <Col xs={12} md={6} style={{ overflow: 'visible' }}>
+            <Col xs={12} xl={4} style={{ overflow: 'visible' }}>
               <Display />
             </Col>
-            <Col xs={12} md={2} style={{ overflow: 'visible' }}>
+            <Col xs={12} xl={2} style={{ overflow: 'visible' }}>
               <Navigation />
             </Col>
-            <Col xs={12} md={4} style={{ overflow: 'visible' }}>
+            <Col xs={12} xl={6} style={{ overflow: 'visible' }}>
               <ViewWrapper>
                 {children}
               </ViewWrapper>

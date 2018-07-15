@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { NavigationWrapper } from './Wrappers';
+import { NavigationWrapper } from './Styles';
 import theme from '../shared/theme';
 
 
@@ -31,7 +31,7 @@ const NavItem = styled.li`
     padding: 20px;
     
     &:hover {
-        background-color: ${({ active }) => active ? theme.tertiaryBlue : theme.secondaryBlue.saturate(0.4)};
+        background-color: ${({ active }) => active ? theme.tertiaryBlue : theme.tertiaryBlue.saturate(0.5)};
     }
     
     a {
@@ -106,7 +106,7 @@ class Navigation extends React.Component {
             </NavItem>
             <NavItem onClick={() => this.activate('search')} active={search}>
               <SearchNavIcon />
-              <Link href='/'>
+              <Link href='/search'>
                 Search
               </Link>
             </NavItem>

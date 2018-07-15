@@ -4,10 +4,11 @@ import {connect} from 'react-redux';
 import { compose } from 'recompose';
 
 import Layout from '../components/Layout';
+import {ColumnWrapper} from '../components/Styles';
 import { SET_USER_POSITION } from '../state/actions';
 
 const mapStateToProps = (state) => ({
-  weather: state.weatherState.weather
+  weather: state.weatherState
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -33,23 +34,42 @@ class Index extends  React.Component {
   }
 
   static async getInitialProps() {
-    return {staticData: 'Active view bonded with display component'}
+    return {staticData: ['Current weather.', 'Whether it\'s good or bad.']}
   }
 
-
   render() {
-    const {staticData} = this.props;
+    const {staticData, weather} = this.props;
+
+    const lat = weather.latitude;
+    const lon = weather.longitude;
 
     return (
       <Layout title='Whether Weather'>
-        {staticData}
+        <ColumnWrapper>
+          <h1>
+            {staticData[0]}
+          </h1>
+          <h2>
+            {staticData[1]}
+          </h2>
+          <p>
+          Your location:
+          </p>
+          <p>
+            {lat}
+          </p>
+          <p>
+            {lon}
+          </p>
+        </ColumnWrapper>
       </Layout>
     )
   }
 }
 
 Index.propTypes = {
-  staticData: PropTypes.string.isRequired,
+  staticData: PropTypes.instanceOf(Array).isRequired,
+  weather: PropTypes.instanceOf(Object).isRequired,
   onSetPosition: PropTypes.func.isRequired
 };
 

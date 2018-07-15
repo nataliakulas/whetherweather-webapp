@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { FETCH_CURRENT_WEATHER_SUCCESS, FETCH_CURRENT_WEATHER_FAIL, SET_USER_POSITION, FETCH_CURRENT_WEATHER_REQUEST } from './actions';
+import { FETCH_CURRENT_WEATHER_SUCCESS, FETCH_CURRENT_WEATHER_FAIL, SET_USER_POSITION,SET_CITY_POSITION, FETCH_CURRENT_WEATHER_REQUEST } from './actions';
 
 const INITIAL_STATE = {
   latitude: 52.237049,
@@ -17,6 +17,13 @@ const INITIAL_STATE = {
 function weatherReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case SET_USER_POSITION: {
+      return {
+        ...state,
+        latitude: action.payload.latitude,
+        longitude: action.payload.longitude
+      };
+    }
+    case SET_CITY_POSITION: {
       return {
         ...state,
         latitude: action.payload.latitude,

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import PropTypes from 'prop-types';
 
-import { DisplayWrapper } from './Wrappers';
+import { DisplayWrapper } from './Styles';
 import ViewBox from './ViewBox';
 
 import { FETCH_CURRENT_WEATHER_REQUEST } from '../state/actions';
@@ -56,9 +56,6 @@ class Display extends React.Component {
 
     return (
       <DisplayWrapper>
-        <h1>
-          Current weather. Whether it&apos;s good or bad.
-        </h1>
         <ViewBox
           icon={weather.icon}
           image={image}

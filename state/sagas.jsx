@@ -1,5 +1,5 @@
-import { put, takeEvery } from 'redux-saga/effects';
-import { FETCH_CURRENT_WEATHER_FAIL, FETCH_CURRENT_WEATHER_SUCCESS, SET_USER_POSITION } from './actions';
+import {all, put, takeEvery } from 'redux-saga/effects';
+import { FETCH_CURRENT_WEATHER_FAIL, FETCH_CURRENT_WEATHER_SUCCESS, SET_CITY_POSITION, SET_USER_POSITION } from './actions';
 import getCurrentWeather from '../shared/api';
 
 function* fetchCurrentWeatherSaga(action) {
@@ -22,5 +22,8 @@ function* fetchCurrentWeatherSaga(action) {
 
 
 export default function* onFetchCurrentWeather() {
-  yield takeEvery(SET_USER_POSITION, fetchCurrentWeatherSaga);
+  yield all([
+    takeEvery(SET_USER_POSITION, fetchCurrentWeatherSaga),
+    takeEvery(SET_CITY_POSITION, fetchCurrentWeatherSaga)
+  ])
 }

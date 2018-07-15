@@ -5,5 +5,6 @@ export default {
   secondaryBlue: '#A3D5E0',
   tertiaryBlue: '#8FC3CC',
   light: '#F0EDEE',
+  white: '#FFFFFF',
   red: '#E84849',
 };
