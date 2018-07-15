@@ -5,16 +5,15 @@ import { compose } from 'recompose';
 import Select from 'react-select';
 
 import Layout from '../components/Layout';
-import { ColumnWrapper, SelectWrapper, Button } from '../components/Styles';
-import { SET_CITY_POSITION } from '../state/actions';
-
-const countries = require('capitals-coordinates').eu28();
+import { ColumnWrapper, SelectWrapper, Button, PanelWrapper } from '../components/Styles';
+import { SET_CITY_POSITION, FETCH_COUNTRIES_REQUEST } from '../state/actions';
 
 const mapStateToProps = (state) => ({
-  weather: state.weatherState
+  countries: state.countriesState.countries
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  onFetchCountries: () => dispatch({ type: FETCH_COUNTRIES_REQUEST }),
   onSetPosition: (latitude, longitude) => dispatch({ type: SET_CITY_POSITION, payload: { latitude, longitude } })
 });
 
@@ -22,8 +21,17 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: ''
+      selected: '',
+      capital: '',
+      country: '',
+      latitude: '',
+      longitude: ''
     };
+  }
+
+  componentDidMount() {
+    const { onFetchCountries } = this.props;
+    onFetchCountries();
   }
 
   static async getInitialProps() {
@@ -32,28 +40,38 @@ class Search extends React.Component {
 
   handleChange = (selected) => {
     this.setState({ selected });
+  };
+
+  handleSearch = () => {
+    const { selected } = this.state;
+
     if (selected) {
-      const { onSetPosition } = this.props;
+      const { onSetPosition, countries } = this.props;
 
       countries.map(country => {
-        if (country.properties.capital === selected.label) {
-          const coordinates = country.geometry.coordinates;
+        if (country.capital === selected.label) {
+          onSetPosition(country.latitude, country.longitude);
 
-          onSetPosition(coordinates[0], coordinates[1]);
+          this.setState({
+            capital: country.capital,
+            country: country.country,
+            latitude: country.latitude,
+            longitude: country.longitude
+          });
         }
       });
     }
   };
 
   render() {
-    const { staticData } = this.props;
-    const { selected } = this.state;
+    const { staticData, countries } = this.props;
+    const { selected, capital, country, latitude, longitude } = this.state;
 
     const options = [];
-    countries.map(country => {
-        options.push({ value: country.properties.capital, label: country.properties.capital });
-      }
-    );
+
+    countries.forEach(country => {
+      options.push({ value: country.capital, label: country.capital });
+    });
 
     return (
       <Layout title='Whether Weather'>
@@ -64,19 +82,45 @@ class Search extends React.Component {
           <h2>
             {staticData[1]}
           </h2>
-          <SelectWrapper>
-            <Select
-              disabled={options.length === 0}
-              placeholder="Search for city"
-              name="select"
-              value={selected}
-              onChange={this.handleChange}
-              options={options}
-            />
-          </SelectWrapper>
-          <Button>
-            Check IT!
-          </Button>
+          <PanelWrapper>
+            <ColumnWrapper>
+              {capital.length > 0 ? (
+                <div>
+                  <p>
+                    {capital}
+                  </p>
+                  <p>
+                    {country}
+                  </p>
+                  <p>
+                    {latitude}
+                  </p>
+                  <p>
+                    {longitude}
+                  </p>
+                </div>
+              ) : (
+                <p>
+                  Select city
+                </p>
+              )}
+            </ColumnWrapper>
+          </PanelWrapper>
+          <ColumnWrapper style={{ width: '100%' }}>
+            <SelectWrapper>
+              <Select
+                disabled={!options}
+                placeholder="Search for city"
+                name="select"
+                value={selected}
+                onChange={this.handleChange}
+                options={options}
+              />
+            </SelectWrapper>
+            <Button onClick={this.handleSearch} disabled={!options}>
+              Check IT!
+            </Button>
+          </ColumnWrapper>
         </ColumnWrapper>
       </Layout>
     );
@@ -85,7 +129,9 @@ class Search extends React.Component {
 
 Search.propTypes = {
   staticData: PropTypes.instanceOf(Array).isRequired,
-  onSetPosition: PropTypes.func.isRequired
+  countries: PropTypes.instanceOf(Object).isRequired,
+  onSetPosition: PropTypes.func.isRequired,
+  onFetchCountries: PropTypes.func.isRequired
 };
 
 export default compose(

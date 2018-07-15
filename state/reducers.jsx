@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { FETCH_CURRENT_WEATHER_SUCCESS, FETCH_CURRENT_WEATHER_FAIL, SET_USER_POSITION,SET_CITY_POSITION, FETCH_CURRENT_WEATHER_REQUEST } from './actions';
+import { FETCH_CURRENT_WEATHER_SUCCESS, FETCH_CURRENT_WEATHER_FAIL, SET_USER_POSITION, SET_CITY_POSITION, FETCH_CURRENT_WEATHER_REQUEST, FETCH_COUNTRIES_REQUEST, FETCH_COUNTRIES_SUCCESS, FETCH_COUNTRIES_FAIL } from './actions';
 
-const INITIAL_STATE = {
+const INITIAL_WEATHER_STATE = {
   latitude: 52.237049,
   longitude: 21.017532,
   icon: '',
@@ -14,7 +14,11 @@ const INITIAL_STATE = {
   windBearing: 0
 };
 
-function weatherReducer(state = INITIAL_STATE, action) {
+const INITIAL_COUNTRIES_STATE = {
+  countries: []
+};
+
+function weatherReducer(state = INITIAL_WEATHER_STATE, action) {
   switch (action.type) {
     case SET_USER_POSITION: {
       return {
@@ -32,7 +36,7 @@ function weatherReducer(state = INITIAL_STATE, action) {
     }
     case FETCH_CURRENT_WEATHER_REQUEST: {
       return {
-        ...state,
+        ...state
       };
     }
     case FETCH_CURRENT_WEATHER_SUCCESS: {
@@ -59,8 +63,46 @@ function weatherReducer(state = INITIAL_STATE, action) {
   }
 }
 
+function countriesReducer(state = INITIAL_COUNTRIES_STATE, action) {
+  switch (action.type) {
+    case FETCH_COUNTRIES_REQUEST: {
+      return {
+        ...state
+      };
+    }
+    case FETCH_COUNTRIES_SUCCESS: {
+      const countries = [];
+
+      action.payload.forEach(country => {
+        countries.push(
+          {
+            latitude: country.geometry.coordinates[0],
+            longitude: country.geometry.coordinates[1],
+            capital: country.properties.capital,
+            country: country.properties.country
+          })
+        ;
+      });
+
+      return {
+        ...state,
+        countries: countries
+      };
+    }
+    case FETCH_COUNTRIES_FAIL: {
+      return {
+        ...state,
+        error: action.payload
+      };
+    }
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
-  weatherState: weatherReducer
+  weatherState: weatherReducer,
+  countriesState: countriesReducer
 });
 
 export default rootReducer;

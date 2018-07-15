@@ -45,12 +45,19 @@ export const NavigationWrapper = styled.header`
     }
 `;
 
-export const DisplayWrapper=styled.aside`
+export const DisplayWrapper = styled.aside`
     width: 100%;
     height: 600px;
     position: relative;
     background-color: ${theme.light};  
     padding: 20px;
+`;
+
+export const PanelWrapper = styled.div`
+  width: 80%;
+  background-color: ${theme.light};
+  margin: 30px auto;
+  padding: 20px;
 `;
 
 export const ColumnWrapper = styled.div`
@@ -97,6 +104,7 @@ export const SelectWrapper = styled.div`
 
 .Select.is-disabled > .Select-control {
   background-color: ${theme.primaryBlue};
+  cursor: not-allowed;
 }
 
 .Select.is-disabled > .Select-control:hover {
@@ -413,7 +421,6 @@ export const SelectWrapper = styled.div`
 
 .Select-option.is-disabled {
   color: ${theme.primaryBlue};
-  cursor: default;
 }
 
 .Select-noresults {
@@ -451,8 +458,13 @@ export const Button = styled.button`
     outline-color: ${theme.tertiaryBlue.saturate(0.5)};
   }
   
-  &:hover {
+  &:hover(not:disabled) {
     background-color: ${theme.tertiaryBlue.saturate(0.5)};
     border: 1px solid ${theme.tertiaryBlue.saturate(0.5)};
+  }
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity:0.25;
   }
 `;
