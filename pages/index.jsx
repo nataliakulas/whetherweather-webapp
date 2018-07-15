@@ -48,10 +48,9 @@ class Index extends  React.Component {
         <ColumnWrapper>
           <h1>
             {staticData[0]}
-          </h1>
-          <h2>
+            <br />
             {staticData[1]}
-          </h2>
+          </h1>
           <p>
           Your location:
           </p>

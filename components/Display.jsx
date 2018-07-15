@@ -46,7 +46,7 @@ class Display extends React.Component {
       case 'partly-cloudy-night':
         return '/static/images/weather/partly-cloudy-night.svg';
       default:
-        return '/static/images/weather/default.svg';
+        return '/static/images/default.svg';
     }
   };
 

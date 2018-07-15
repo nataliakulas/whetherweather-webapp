@@ -54,13 +54,15 @@ export const DisplayWrapper = styled.aside`
 `;
 
 export const PanelWrapper = styled.div`
-  width: 80%;
-  background-color: ${theme.light};
+  width: 70%;
+  height: 200px;
   margin: 30px auto;
   padding: 20px;
 `;
 
 export const ColumnWrapper = styled.div`
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -467,4 +469,11 @@ export const Button = styled.button`
     cursor: not-allowed;
     opacity:0.25;
   }
+`;
+
+
+export const Image = styled.img`
+    width: 100px;
+    height: 100px;
+    margin: 25px;
 `;

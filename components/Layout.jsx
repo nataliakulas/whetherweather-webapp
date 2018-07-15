@@ -48,6 +48,7 @@ injectGlobal`
        font-family: PoppinsRegular,sans-serif;
        font-size: 20px;
        line-height: 30px;
+       text-align: center;
        margin: 5px auto;
     }   
     

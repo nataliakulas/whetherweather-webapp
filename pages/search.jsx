@@ -1,11 +1,12 @@
 import React from 'react';
+import { Row, Col } from 'react-grid-system';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Select from 'react-select';
 
 import Layout from '../components/Layout';
-import { ColumnWrapper, SelectWrapper, Button, PanelWrapper } from '../components/Styles';
+import { ColumnWrapper, SelectWrapper, Button, PanelWrapper, Image } from '../components/Styles';
 import { SET_CITY_POSITION, FETCH_COUNTRIES_REQUEST } from '../state/actions';
 
 const mapStateToProps = (state) => ({
@@ -25,7 +26,8 @@ class Search extends React.Component {
       capital: '',
       country: '',
       latitude: '',
-      longitude: ''
+      longitude: '',
+      flag: '/static/images/default.svg'
     };
   }
 
@@ -35,7 +37,7 @@ class Search extends React.Component {
   }
 
   static async getInitialProps() {
-    return { staticData: ['Check the weather.', 'Somewhere else.'] };
+    return { staticData: ['Check whether the weather,', 'be fine somewhere else.'] };
   }
 
   handleChange = (selected) => {
@@ -56,7 +58,8 @@ class Search extends React.Component {
             capital: country.capital,
             country: country.country,
             latitude: country.latitude,
-            longitude: country.longitude
+            longitude: country.longitude,
+            flag: '/static/images/flags/' + country.country.toLowerCase() + '.svg'
           });
         }
       });
@@ -65,7 +68,7 @@ class Search extends React.Component {
 
   render() {
     const { staticData, countries } = this.props;
-    const { selected, capital, country, latitude, longitude } = this.state;
+    const { selected, capital, country, latitude, longitude, flag } = this.state;
 
     const options = [];
 
@@ -78,33 +81,32 @@ class Search extends React.Component {
         <ColumnWrapper>
           <h1>
             {staticData[0]}
-          </h1>
-          <h2>
+            <br />
             {staticData[1]}
-          </h2>
+          </h1>
           <PanelWrapper>
-            <ColumnWrapper>
-              {capital.length > 0 ? (
-                <div>
-                  <p>
+            {capital.length > 0 ? (
+              <Row>
+                <Col>
+                  <p style={{ fontWeight: 'bold', marginTop: 30 }}>
                     {capital}
-                  </p>
-                  <p>
+                    &nbsp;in&nbsp;
                     {country}
                   </p>
                   <p>
+                    Coordinates:&nbsp;
+                    <br />
                     {latitude}
-                  </p>
-                  <p>
+                    ,&nbsp;
                     {longitude}
                   </p>
-                </div>
-              ) : (
-                <p>
-                  Select city
-                </p>
-              )}
-            </ColumnWrapper>
+                </Col>
+                <Col>
+                  <Image src={flag} alt={country} />
+                </Col>
+              </Row>
+            ) : <div style={{ height: 197 }} />
+            }
           </PanelWrapper>
           <ColumnWrapper style={{ width: '100%' }}>
             <SelectWrapper>
