@@ -37,7 +37,7 @@ class Search extends React.Component {
   }
 
   static async getInitialProps() {
-    return { staticData: ['Check whether the weather,', 'be fine somewhere else.'] };
+    return { staticData: ['Check whether the weather,', 'is fine somewhere else.'] };
   }
 
   handleChange = (selected) => {
@@ -76,6 +76,15 @@ class Search extends React.Component {
       options.push({ value: country.capital, label: country.capital });
     });
 
+
+    const sortAscending = ()=> {
+      console.log('sort A to Z');
+    };
+
+    const sortDescending = ()=> {
+      console.log('sort Z to A')
+    };
+
     return (
       <Layout title='Whether Weather'>
         <ColumnWrapper>
@@ -85,6 +94,18 @@ class Search extends React.Component {
             {staticData[1]}
           </h1>
           <ColumnWrapper style={{ width: '100%' }}>
+            <Row style={{width:'100%', maxWidth: 305}}>
+              <Col xs={12} sm={6}>
+                <Button onClick={sortAscending} disabled={!options} type="button">
+                  From A to Z
+                </Button>
+              </Col>
+              <Col xs={12} sm={6}>
+                <Button onClick={sortDescending} disabled={!options} type="button">
+                  From Z to A
+                </Button>
+              </Col>
+            </Row>
             <SelectWrapper>
               <Select
                 disabled={!options}
@@ -95,7 +116,7 @@ class Search extends React.Component {
                 options={options}
               />
             </SelectWrapper>
-            <Button onClick={this.handleSearch} disabled={!options}>
+            <Button onClick={this.handleSearch} disabled={!options} type="button" chunk>
               Check IT!
             </Button>
           </ColumnWrapper>

@@ -83,6 +83,7 @@ export const SelectWrapper = styled.div`
 
 .Select {
   position: relative;
+  margin: 10px 0;
 }
 
 .Select input::-webkit-contacts-auto-fill-button,
@@ -449,7 +450,7 @@ export const SelectWrapper = styled.div`
 export const Button = styled.button`
   width: 100%;
   max-width: 275px;
-  height: 38px;
+  height: ${({chunk}) => chunk? '57px': '38px' };
   background-color: ${theme.tertiaryBlue};
   border: 1px solid ${theme.tertiaryBlue};
   color: ${theme.white};
