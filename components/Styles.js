@@ -64,6 +64,7 @@ export const BoxWrapper = styled.div`
 
   > div {
     align-items: center !important;
+    margin: 0 !important;
   }
 `;
 

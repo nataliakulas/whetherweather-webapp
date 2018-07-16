@@ -57,7 +57,7 @@ class Box extends React.Component {
               alt={icon}
             />
           </Col>
-          <Col xs={12} xl={6}>
+          <Col xs={12} xl={5}>
             <h2>
               {summary}
             </h2>
@@ -89,14 +89,14 @@ class Box extends React.Component {
           </Col>
           <Col xs={12} xl={5}>
             <p>
-              Cloud coverage:&nbsp;
+              Cloudiness:&nbsp;
               {isNaN(roundTo1(cloudCover)) ? '---' : roundTo1(cloudCover) * 100}
               &nbsp;%
             </p>
           </Col>
         </Row>
         <Row>
-          <Col xs={12} xl={6} offset={{ xl: 1 }} style={{ display: 'flex', alignItems: 'center' }}>
+          <Col xs={12} xl={11} offset={{ xl: 1 }} style={{ display: 'flex', alignItems: 'center' }}>
             <p>
               Wind:&nbsp;
               {isNaN(roundTo1(windSpeed)) ? '---' : roundTo1(windSpeed)}

@@ -27,7 +27,7 @@ class Search extends React.Component {
   }
 
   static async getInitialProps() {
-    return { staticData: ['Check whether the weather,', 'is fine somewhere else.'] };
+    return { staticData: ['Whether the weather,', 'is fine somewhere else?'] };
   }
 
   handleChange = (selected) => {
