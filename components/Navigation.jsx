@@ -69,7 +69,7 @@ class Navigation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: true,
+      location: false,
       search: false,
       favorites: false
     };
@@ -100,7 +100,7 @@ class Navigation extends React.Component {
           <NavList>
             <NavItem onClick={() => this.activate('location')} active={location}>
               <LocationNavIcon />
-              <Link href='/'>
+              <Link href='/location'>
                 Location
               </Link>
             </NavItem>
