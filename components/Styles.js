@@ -14,7 +14,7 @@ export const BackgroundWrapper = styled.div`
 
 export const ViewWrapper = styled.section`
     width: 100%;
-    height: 600px;
+    height: 525px;
     position: relative;
     background-color: ${theme.primaryBlue};
     border: 1px solid transparent;
@@ -24,7 +24,7 @@ export const ViewWrapper = styled.section`
 
 export const NavigationWrapper = styled.header`
     width: 100%;
-    height: 600px;
+    height: 525px;
     text-align: center;
     background-color: ${theme.secondaryBlue};
     border: 1px solid transparent;
@@ -50,19 +50,31 @@ export const NavigationWrapper = styled.header`
 
 export const DisplayWrapper = styled.aside`
     width: 100%;
-    height: 600px;
+    height: 525px;
     position: relative;
     background-color: ${theme.light};  
     border: 1px solid transparent;
     border-radius: 2px 0 0 2px;
-    padding: 20px;
+    padding: 20px 0;
+`;
+
+export const BoxWrapper = styled.div`
+  width: 100%;
+  margin-bottom: 30px;
+
+  > div {
+    align-items: center !important;
+  }
 `;
 
 export const PanelWrapper = styled.div`
-  width: 80%;
-  height: 200px;
+  width: 85%;
+  height: 165px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 45px;
+  background-color: ${theme.primaryBlue};
+  border: 1px solid ${theme.primaryBlue};
+  border-radius: 2px;
 `;
 
 export const ColumnWrapper = styled.div`
@@ -501,5 +513,5 @@ export const SquareButton = styled.button`
 export const Image = styled.img`
     width: 100px;
     height: 100px;
-    margin: 25px;
+    margin: 10px;
 `;

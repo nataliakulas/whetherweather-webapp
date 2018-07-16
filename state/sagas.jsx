@@ -5,8 +5,7 @@ import {
   FETCH_COUNTRIES_FAIL,
   FETCH_CURRENT_WEATHER_FAIL,
   FETCH_CURRENT_WEATHER_SUCCESS,
-  SET_CITY_POSITION,
-  SET_USER_POSITION
+  SET_POSITION
 } from './actions';
 import getCurrentWeather from '../shared/api';
 
@@ -46,8 +45,7 @@ function* fetchCountriesSaga() {
 
 export default function* onFetchCurrentWeather() {
   yield all([
-    takeEvery(SET_USER_POSITION, fetchCurrentWeatherSaga),
-    takeEvery(SET_CITY_POSITION, fetchCurrentWeatherSaga),
+    takeEvery(SET_POSITION, fetchCurrentWeatherSaga),
     takeEvery(FETCH_COUNTRIES_REQUEST, fetchCountriesSaga)
   ]);
 }

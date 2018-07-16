@@ -6,16 +6,21 @@ import theme from '../shared/theme';
 
 
 const Nav = styled.nav`
+    height: calc(100% + 2px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: -1px;
 `;
 
 const NavList = styled.ul`
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     list-style-type: none;
-    margin: -1px;
+    margin: 0;
     padding: 0;
 `;
 

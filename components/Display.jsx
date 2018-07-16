@@ -4,12 +4,14 @@ import { compose } from 'recompose';
 import PropTypes from 'prop-types';
 
 import { DisplayWrapper } from './Styles';
-import ViewBox from './ViewBox';
+import Box from './Box';
+import Panel from './Panel';
 
 import { FETCH_CURRENT_WEATHER_REQUEST } from '../state/actions';
 
 const mapStateToProps = (state) => ({
-  weather: state.weatherState
+  display: state.displayState,
+  countries: state.countriesState.countries
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -17,55 +19,67 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Display extends React.Component {
-
   componentDidMount() {
-    const { onFetchCurrentWeather, weather } = this.props;
-    onFetchCurrentWeather(weather);
+    const { onFetchCurrentWeather, display } = this.props;
+    onFetchCurrentWeather(display);
   }
 
-  setImage = (icon) => {
-    switch (icon) {
-      case 'clear-day':
-        return '/static/images/weather/clear-day.svg';
-      case 'clear-night':
-        return '/static/images/weather/clear-night.svg';
-      case 'rain':
-        return '/static/images/weather/rain.svg';
-      case 'snow':
-        return '/static/images/weather/snow.svg';
-      case 'sleet':
-        return '/static/images/weather/sleet.svg';
-      case 'wind':
-        return '/static/images/weather/wind.svg';
-      case 'fog':
-        return '/static/images/weather/fog.svg';
-      case 'cloudy':
-        return '/static/images/weather/cloudy.svg';
-      case 'partly-cloudy-day':
-        return '/static/images/weather/partly-cloudy-day.svg';
-      case 'partly-cloudy-night':
-        return '/static/images/weather/partly-cloudy-night.svg';
-      default:
-        return '/static/images/default.svg';
+  toggleFav = (latitude, longitude) => {
+    const { favs, onSetFav, onSetUnfav } = this.props;
+
+    if (favs.find(item => item.latitude === latitude && item.longitude === longitude)) {
+      onSetUnfav(latitude, longitude);
+    } else {
+      onSetFav(latitude, longitude);
     }
   };
 
   render() {
-    const { weather } = this.props;
-    let image = this.setImage(weather.icon);
+    const { display, countries } = this.props;
+
+    let capital = '---';
+    let country = '---';
+    let latitude = '---';
+    let longitude = '---';
+
+    function roundTo2(number) {
+      return Math.round(number * 100) / 100;
+    }
+
+    if (display.latitude !== '---' && display.longitude !== '---') {
+      latitude = roundTo2(display.latitude);
+      longitude = roundTo2(display.longitude);
+
+
+      if (countries.length > 0) {
+        countries.forEach(item => {
+          if (item.latitude === latitude && item.longitude === longitude) {
+            capital = item.capital;
+            country = item.country;
+          }
+        });
+      }
+    }
 
     return (
       <DisplayWrapper>
-        <ViewBox
-          icon={weather.icon}
-          image={image}
-          summary={weather.summary}
-          temperature={weather.temperature}
-          pressure={weather.pressure}
-          humidity={weather.humidity}
-          cloudCover={weather.cloudCover}
-          windSpeed={weather.windSpeed}
-          windBearing={weather.windBearing}
+        <Box
+          icon={display.icon}
+          summary={display.summary}
+          temperature={display.temperature}
+          pressure={display.pressure}
+          humidity={display.humidity}
+          cloudCover={display.cloudCover}
+          windSpeed={display.windSpeed}
+          windBearing={display.windBearing}
+        />
+        <Panel
+          capital={capital}
+          country={country}
+          latitude={latitude}
+          longitude={longitude}
+          toggleFav={this.toggleFav}
+          fav
         />
       </DisplayWrapper>
     );
@@ -73,8 +87,12 @@ class Display extends React.Component {
 }
 
 Display.propTypes = {
-  weather: PropTypes.instanceOf(Object).isRequired,
-  onFetchCurrentWeather: PropTypes.func.isRequired
+  display: PropTypes.instanceOf(Object).isRequired,
+  onFetchCurrentWeather: PropTypes.func.isRequired,
+  countries: PropTypes.instanceOf(Object).isRequired,
+  favs: PropTypes.instanceOf(Object).isRequired,
+  onSetFav: PropTypes.func.isRequired,
+  onSetUnfav: PropTypes.func.isRequired
 };
 
 export default compose(

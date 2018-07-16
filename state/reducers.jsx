@@ -2,8 +2,7 @@ import { combineReducers } from 'redux';
 import {
   FETCH_CURRENT_WEATHER_SUCCESS,
   FETCH_CURRENT_WEATHER_FAIL,
-  SET_USER_POSITION,
-  SET_CITY_POSITION,
+  SET_POSITION,
   FETCH_CURRENT_WEATHER_REQUEST,
   FETCH_COUNTRIES_REQUEST,
   FETCH_COUNTRIES_SUCCESS,
@@ -12,7 +11,7 @@ import {
   SET_UNFAV
 } from './actions';
 
-const INITIAL_WEATHER_STATE = {
+const INITIAL_DISPLAY_STATE = {
   latitude: '---',
   longitude: '---',
   icon: '---',
@@ -22,7 +21,8 @@ const INITIAL_WEATHER_STATE = {
   humidity: '---',
   cloudCover: '---',
   windSpeed: '---',
-  windBearing: '---'
+  windBearing: '---',
+  active: false
 };
 
 const INITIAL_COUNTRIES_STATE = {
@@ -33,16 +33,9 @@ const INITIAL_FAVS_STATE = {
   favs: []
 };
 
-function weatherReducer(state = INITIAL_WEATHER_STATE, action) {
+function displayReducer(state = INITIAL_DISPLAY_STATE, action) {
   switch (action.type) {
-    case SET_USER_POSITION: {
-      return {
-        ...state,
-        latitude: action.payload.latitude,
-        longitude: action.payload.longitude
-      };
-    }
-    case SET_CITY_POSITION: {
+    case SET_POSITION: {
       return {
         ...state,
         latitude: action.payload.latitude,
@@ -150,7 +143,7 @@ function favsReducer(state = INITIAL_FAVS_STATE, action) {
 
 
 const rootReducer = combineReducers({
-  weatherState: weatherReducer,
+  displayState: displayReducer,
   countriesState: countriesReducer,
   favsState: favsReducer
 });

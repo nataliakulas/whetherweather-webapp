@@ -6,18 +6,18 @@ import { compose } from 'recompose';
 
 import Layout from '../components/Layout';
 import { ColumnWrapper } from '../components/Styles';
-import ViewListItem from '../components/ViewListItem';
-import { FETCH_COUNTRIES_REQUEST, SET_CITY_POSITION, SET_FAV, SET_UNFAV } from '../state/actions';
+import ViewListItem from '../components/ListItem';
+import { FETCH_COUNTRIES_REQUEST, SET_POSITION,SET_FAV, SET_UNFAV } from '../state/actions';
 
 const mapStateToProps = (state) => ({
-  weather: state.weatherState,
+  display: state.displayState,
   countries: state.countriesState.countries,
   favs: state.favsState.favs
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchCountries: () => dispatch({ type: FETCH_COUNTRIES_REQUEST }),
-  onSetPosition: (latitude, longitude) => dispatch({ type: SET_CITY_POSITION, payload: { latitude, longitude } }),
+  onSetPosition: (latitude, longitude) => dispatch({ type: SET_POSITION, payload: { latitude, longitude } }),
   onSetFav: (latitude, longitude) => dispatch({ type: SET_FAV, payload: { latitude, longitude } }),
   onSetUnfav: (latitude, longitude) => dispatch({ type: SET_UNFAV, payload: { latitude, longitude } })
 });
@@ -43,7 +43,7 @@ class Favs extends React.Component {
   };
 
   render() {
-    const { staticData, favs, countries, weather, onSetPosition } = this.props;
+    const { staticData, favs, countries, display, onSetPosition } = this.props;
 
     return (
       <Layout title='Whether Weather'>
@@ -63,7 +63,7 @@ class Favs extends React.Component {
           let capital = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).capital;
           let country = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).country;
           let isFav = true;
-          let isActive = weather.latitude === item.latitude && weather.longitude && weather.latitude;
+          let isActive = display.latitude === item.latitude && display.longitude && display.latitude;
 
           return (
             <ViewListItem
@@ -90,7 +90,7 @@ Favs.propTypes = {
   onSetPosition: PropTypes.func.isRequired,
   onFetchCountries: PropTypes.func.isRequired,
   favs: PropTypes.instanceOf(Object).isRequired,
-  weather: PropTypes.instanceOf(Object).isRequired,
+  display: PropTypes.instanceOf(Object).isRequired,
   onSetFav: PropTypes.func.isRequired,
   onSetUnfav: PropTypes.func.isRequired
 };

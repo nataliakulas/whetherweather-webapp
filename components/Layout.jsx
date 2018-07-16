@@ -54,6 +54,10 @@ injectGlobal`
     
     h2 {
        font-size: 18px
+    }  
+    
+    p {
+      margin: 10px 0;
     }
 `;
 
@@ -71,15 +75,15 @@ const Layout = ({ children, title }) => (
         />
       </Head>
       <BackgroundWrapper>
-        <Container style={{width:'100%'}}>
+        <Container style={{ width: '100%' }}>
           <Row nogutter>
-            <Col xs={12} xl={4} style={{ overflow: 'visible' }}>
+            <Col xs={12} xl={5} offset={{ xl: 1 }} style={{ overflow: 'visible' }}>
               <Display />
             </Col>
-            <Col xs={12} xl={2} style={{ overflow: 'visible' }}>
+            <Col xs={12} xl={1} style={{ overflow: 'visible' }}>
               <Navigation />
             </Col>
-            <Col xs={12} xl={6} style={{ overflow: 'visible' }}>
+            <Col xs={12} xl={4} style={{ overflow: 'visible' }}>
               <ViewWrapper>
                 {children}
               </ViewWrapper>

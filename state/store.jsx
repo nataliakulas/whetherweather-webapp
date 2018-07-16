@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from './reducers';
 import rootSaga from './sagas';
+import { FETCH_COUNTRIES_REQUEST } from './actions';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -37,6 +38,8 @@ function configureStore() {
   store.runSagaTask();
 
   persistStore(store);
+
+  store.dispatch({type: FETCH_COUNTRIES_REQUEST});
 
   return store;
 }

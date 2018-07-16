@@ -1,12 +1,12 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import {ColumnWrapper} from '../components/Styles';
+import { ColumnWrapper } from '../components/Styles';
 
 
-const Index = ()=> (
+const Index = () => (
   <Layout title='Whether Weather'>
     <ColumnWrapper>
-      <p style={{textAlign: 'center'}}>
+      <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
         Whether the weather be fine,
         <br />
         Or whether the weather be not,

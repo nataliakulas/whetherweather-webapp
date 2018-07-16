@@ -6,15 +6,16 @@ import theme from '../shared/theme';
 
 import { SquareButton, Button } from './Styles';
 
-const ViewListItemWrapper = styled.div`
+const ListItemWrapper = styled.div`
     margin: 10px auto;
     background-color: ${({ active }) => active ? theme.light : theme.primaryBlue };
     border: 1px solid;
-    border-color: ${({ active }) => active ?  theme.light : theme.secondaryBlue };
+    border-color: ${({ active }) => active ? theme.light : theme.secondaryBlue };
     border-radius: 2px;
+    padding: 0 10px;
 `;
 
-class ViewListItem extends React.Component {
+class ListItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,36 +40,41 @@ class ViewListItem extends React.Component {
     }
 
     return (
-      <ViewListItemWrapper active={active}>
-        <Row style={{ width: '100%', alignItems: 'center' }}>
+      <ListItemWrapper active={active}>
+        <Row style={{ width: '100%', alignItems: 'center', justifyContent: 'space-between' }} nogutter>
           <Col xs={12} xl={2}>
-            <SquareButton onClick={toggleFav} disabled={!latitude || !longitude} type="button" active={fav} />
+            <SquareButton onClick={toggleFav} disabled={!latitude || !longitude} type="button" active={fav} style={{ marginLeft: 0 }} />
           </Col>
-          <Col xs={12} xl={6}>
-            <p style={{ fontSize: 14, margin: '0 5px' }}>
+          <Col xs={12} xl={8}>
+            <p style={{ fontSize: 14, margin: '0 10px' }}>
               {capital ? capital : null}
               ,&nbsp;
               {country ? country : null}
               <br />
-              {longitude}
-              ,&nbsp;
               {latitude}
+              ,&nbsp;
+              {longitude}
             </p>
           </Col>
-          <Col xs={12} xl={4}>
+          <Col xs={12} xl={2}>
             <Button onClick={showWeather} type='button'>
-              Weather
+              SET
             </Button>
           </Col>
         </Row>
-      </ViewListItemWrapper>
+      </ListItemWrapper>
     );
   }
 }
 
-ViewListItem.propTypes = {
-  capital: PropTypes.string.isRequired,
-  country: PropTypes.string.isRequired,
+ListItem.defaultProps = {
+  capital: '',
+  country: ''
+};
+
+ListItem.propTypes = {
+  capital: PropTypes.string,
+  country: PropTypes.string,
   longitude: PropTypes.number.isRequired,
   latitude: PropTypes.number.isRequired,
   toggleFav: PropTypes.func.isRequired,
@@ -77,4 +83,4 @@ ViewListItem.propTypes = {
   fav: PropTypes.bool.isRequired
 };
 
-export default ViewListItem;
+export default ListItem;
