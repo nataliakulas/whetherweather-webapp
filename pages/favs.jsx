@@ -6,7 +6,6 @@ import { compose } from 'recompose';
 
 import Layout from '../components/Layout';
 import ViewListItem from '../components/ViewListItem';
-import { ColumnWrapper } from '../components/Styles';
 import { SET_FAV, SET_UNFAV } from '../state/actions';
 
 const mapStateToProps = (state) => ({
@@ -45,29 +44,28 @@ class Favs extends React.Component {
 
     return (
       <Layout title='Whether Weather'>
-        <ColumnWrapper>
-          <h1>
-            {staticData[0]}
-            <br />
-            {staticData[1]}
-          </h1>
-          {favs.map(item => {
-            let capital = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).capital;
-            let country = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).country;
+        <h1>
+          {staticData[0]}
+          <br />
+          {staticData[1]}
+        </h1>
+        {favs.map(item => {
+          let capital = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).capital;
+          let country = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).country;
 
-            return (
-              <ViewListItem
-                key={item.latitude + item.longitude}
-                latitude={item.latitude}
-                longitude={item.longitude}
-                capital={capital}
-                country={country}
-                toggleFav={() => this.toggleFav(item.latitude, item.longitude)}
-                onClick={() => console.log('fetch weather')}
-              />
-            );
-          })}
-        </ColumnWrapper>
+          return (
+            <ViewListItem
+              key={item.latitude + item.longitude}
+              latitude={item.latitude}
+              longitude={item.longitude}
+              capital={capital}
+              country={country}
+              toggleFav={() => this.toggleFav(item.latitude, item.longitude)}
+              showWeather={() => console.log('fetch weather')}
+              active
+            />
+          );
+        })}
       </Layout>
     );
   }
