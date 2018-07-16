@@ -44,7 +44,7 @@ class Location extends  React.Component {
     const lon = weather.longitude;
 
     return (
-      <Layout>
+      <Layout title='Whether Weather'>
         <ColumnWrapper>
           <h1>
             {staticData[0]}

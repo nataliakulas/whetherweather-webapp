@@ -112,7 +112,7 @@ class Navigation extends React.Component {
             </NavItem>
             <NavItem onClick={() => this.activate('favorites')} active={favorites}>
               <FavoritesNavIcon />
-              <Link href='/'>
+              <Link href='/favs'>
                 Favs
               </Link>
             </NavItem>

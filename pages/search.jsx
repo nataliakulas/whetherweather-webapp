@@ -7,15 +7,18 @@ import Select from 'react-select';
 
 import Layout from '../components/Layout';
 import { ColumnWrapper, SelectWrapper, Button, PanelWrapper, Image } from '../components/Styles';
-import { SET_CITY_POSITION, FETCH_COUNTRIES_REQUEST } from '../state/actions';
+import { SET_CITY_POSITION, FETCH_COUNTRIES_REQUEST, SET_FAV, SET_UNFAV } from '../state/actions';
 
 const mapStateToProps = (state) => ({
-  countries: state.countriesState.countries
+  countries: state.countriesState.countries,
+  favs: state.favsState.favs
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchCountries: () => dispatch({ type: FETCH_COUNTRIES_REQUEST }),
-  onSetPosition: (latitude, longitude) => dispatch({ type: SET_CITY_POSITION, payload: { latitude, longitude } })
+  onSetPosition: (latitude, longitude) => dispatch({ type: SET_CITY_POSITION, payload: { latitude, longitude } }),
+  onSetFav: (latitude, longitude) => dispatch({ type: SET_FAV, payload: { latitude, longitude } }),
+  onSetUnfav: (latitude, longitude) => dispatch({ type: SET_UNFAV, payload: { latitude, longitude } })
 });
 
 class Search extends React.Component {
@@ -32,7 +35,8 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    const { onFetchCountries } = this.props;
+    const { onFetchCountries,onSetFav, onSetUnfav } = this.props;
+    console.log(onSetFav,onSetUnfav);
     onFetchCountries();
   }
 
@@ -154,7 +158,9 @@ Search.propTypes = {
   staticData: PropTypes.instanceOf(Array).isRequired,
   countries: PropTypes.instanceOf(Object).isRequired,
   onSetPosition: PropTypes.func.isRequired,
-  onFetchCountries: PropTypes.func.isRequired
+  onFetchCountries: PropTypes.func.isRequired,
+  onSetFav: PropTypes.func.isRequired,
+  onSetUnfav: PropTypes.func.isRequired
 };
 
 export default compose(

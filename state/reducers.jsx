@@ -18,6 +18,10 @@ const INITIAL_COUNTRIES_STATE = {
   countries: []
 };
 
+const INITIAL_FAVS_STATE = {
+  favs: []
+};
+
 function weatherReducer(state = INITIAL_WEATHER_STATE, action) {
   switch (action.type) {
     case SET_USER_POSITION: {
@@ -100,9 +104,18 @@ function countriesReducer(state = INITIAL_COUNTRIES_STATE, action) {
   }
 }
 
+function favsReducer(state=INITIAL_FAVS_STATE, action) {
+  switch (action.type){
+    default:
+      return state;
+  }
+}
+
+
 const rootReducer = combineReducers({
   weatherState: weatherReducer,
-  countriesState: countriesReducer
+  countriesState: countriesReducer,
+  favsState: favsReducer
 });
 
 export default rootReducer;
