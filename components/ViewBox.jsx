@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import {ColumnWrapper, RowAroundWrapper, Image} from './Styles';
+import { ColumnWrapper, RowAroundWrapper, Image } from './Styles';
 
 const WindIcon = styled.div`
     width: 30px;
@@ -29,7 +29,7 @@ class ViewBox extends React.Component {
 
   render() {
     const { icon, image, summary, temperature, pressure, humidity, cloudCover, windSpeed, windBearing } = this.props;
-    const { loading} = this.state;
+    const { loading } = this.state;
 
     if (loading) {
       return (
@@ -67,9 +67,9 @@ class ViewBox extends React.Component {
         </p>
         <RowAroundWrapper>
           <p>
-          Wind:&nbsp;
+            Wind:&nbsp;
             {windSpeed}
-          &nbsp;km/h
+            &nbsp;km/h
           </p>
           <WindIcon degree={windBearing} />
         </RowAroundWrapper>
@@ -82,12 +82,12 @@ ViewBox.propTypes = {
   icon: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
-  temperature: PropTypes.number.isRequired,
-  pressure: PropTypes.number.isRequired,
-  humidity: PropTypes.number.isRequired,
-  cloudCover: PropTypes.number.isRequired,
-  windSpeed: PropTypes.number.isRequired,
-  windBearing: PropTypes.number.isRequired
+  temperature: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  pressure: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  humidity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  cloudCover: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  windSpeed: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  windBearing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 };
 
 export default ViewBox;

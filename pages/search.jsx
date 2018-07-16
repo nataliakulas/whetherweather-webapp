@@ -64,7 +64,7 @@ class Search extends React.Component {
             latitude: country.latitude,
             longitude: country.longitude,
             flag: '/static/images/flags/' + country.country.toLowerCase() + '.svg',
-            fav: favs.find(item => item.latitude === country.latitude && item.longitude === country.longitude)
+            fav: favs && favs.find(item => item.latitude === country.latitude && item.longitude === country.longitude)
           });
         }
       });
@@ -75,7 +75,7 @@ class Search extends React.Component {
     const { latitude, longitude, fav } = this.state;
     const { favs, onSetFav, onSetUnfav } = this.props;
 
-    if (fav && favs.find(item => item.latitude === latitude && item.longitude === longitude)) {
+    if (fav && favs && favs.find(item => item.latitude === latitude && item.longitude === longitude)) {
       onSetUnfav(latitude, longitude);
       this.setState({ fav: false });
     } else {

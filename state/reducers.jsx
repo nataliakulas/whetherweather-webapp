@@ -1,17 +1,28 @@
 import { combineReducers } from 'redux';
-import { FETCH_CURRENT_WEATHER_SUCCESS, FETCH_CURRENT_WEATHER_FAIL, SET_USER_POSITION, SET_CITY_POSITION, FETCH_CURRENT_WEATHER_REQUEST, FETCH_COUNTRIES_REQUEST, FETCH_COUNTRIES_SUCCESS, FETCH_COUNTRIES_FAIL, SET_FAV, SET_UNFAV } from './actions';
+import {
+  FETCH_CURRENT_WEATHER_SUCCESS,
+  FETCH_CURRENT_WEATHER_FAIL,
+  SET_USER_POSITION,
+  SET_CITY_POSITION,
+  FETCH_CURRENT_WEATHER_REQUEST,
+  FETCH_COUNTRIES_REQUEST,
+  FETCH_COUNTRIES_SUCCESS,
+  FETCH_COUNTRIES_FAIL,
+  SET_FAV,
+  SET_UNFAV
+} from './actions';
 
 const INITIAL_WEATHER_STATE = {
-  latitude: 52.237049,
-  longitude: 21.017532,
-  icon: '',
-  summary: '',
-  temperature: 0,
-  pressure: 0,
-  humidity: 0,
-  cloudCover: 0,
-  windSpeed: 0,
-  windBearing: 0
+  latitude: '---',
+  longitude: '---',
+  icon: '---',
+  summary: '---',
+  temperature: '---',
+  pressure: '---',
+  humidity: '---',
+  cloudCover: '---',
+  windSpeed: '---',
+  windBearing: '---'
 };
 
 const INITIAL_COUNTRIES_STATE = {

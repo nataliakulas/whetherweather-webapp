@@ -8,9 +8,9 @@ import { SquareButton, Button } from './Styles';
 
 const ViewListItemWrapper = styled.div`
     margin: 10px auto;
-    background-color: ${theme.light};
+    background-color: ${({ active }) => active ? theme.light : theme.primaryBlue };
     border: 1px solid;
-    border-color: ${({ active }) => active ? theme.tertiaryBlue : theme.light};
+    border-color: ${({ active }) => active ?  theme.light : theme.secondaryBlue };
     border-radius: 2px;
 `;
 
@@ -27,7 +27,7 @@ class ViewListItem extends React.Component {
   }
 
   render() {
-    const { latitude, longitude, capital, country, toggleFav, showWeather, active } = this.props;
+    const { latitude, longitude, capital, country, toggleFav, showWeather, active, fav } = this.props;
     const { loading } = this.state;
 
     if (loading) {
@@ -42,7 +42,7 @@ class ViewListItem extends React.Component {
       <ViewListItemWrapper active={active}>
         <Row style={{ width: '100%', alignItems: 'center' }}>
           <Col xs={12} xl={2}>
-            <SquareButton onClick={toggleFav} disabled={!latitude || !longitude} type="button" />
+            <SquareButton onClick={toggleFav} disabled={!latitude || !longitude} type="button" active={fav} />
           </Col>
           <Col xs={12} xl={6}>
             <p style={{ fontSize: 14, margin: '0 5px' }}>
@@ -73,7 +73,8 @@ ViewListItem.propTypes = {
   latitude: PropTypes.number.isRequired,
   toggleFav: PropTypes.func.isRequired,
   showWeather: PropTypes.func.isRequired,
-  active: PropTypes.bool.isRequired
+  active: PropTypes.bool.isRequired,
+  fav: PropTypes.bool.isRequired
 };
 
 export default ViewListItem;

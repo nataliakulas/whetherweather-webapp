@@ -5,28 +5,31 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
 import Layout from '../components/Layout';
+import { ColumnWrapper } from '../components/Styles';
 import ViewListItem from '../components/ViewListItem';
-import { SET_FAV, SET_UNFAV } from '../state/actions';
+import { FETCH_COUNTRIES_REQUEST, SET_CITY_POSITION, SET_FAV, SET_UNFAV } from '../state/actions';
 
 const mapStateToProps = (state) => ({
+  weather: state.weatherState,
   countries: state.countriesState.countries,
   favs: state.favsState.favs
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  onFetchCountries: () => dispatch({ type: FETCH_COUNTRIES_REQUEST }),
+  onSetPosition: (latitude, longitude) => dispatch({ type: SET_CITY_POSITION, payload: { latitude, longitude } }),
   onSetFav: (latitude, longitude) => dispatch({ type: SET_FAV, payload: { latitude, longitude } }),
   onSetUnfav: (latitude, longitude) => dispatch({ type: SET_UNFAV, payload: { latitude, longitude } })
 });
 
 class Favs extends React.Component {
   componentDidMount() {
-    const { onSetFav, onSetUnfav } = this.props;
-
-    console.log(onSetFav, onSetUnfav);
+    const { onFetchCountries } = this.props;
+    onFetchCountries();
   }
 
   static async getInitialProps() {
-    return { staticData: ['Favs,', 'list.'] };
+    return { staticData: ['Favs,', 'list.', 'Sorry, no favs'] };
   }
 
   toggleFav = (latitude, longitude) => {
@@ -40,7 +43,7 @@ class Favs extends React.Component {
   };
 
   render() {
-    const { staticData, favs, countries } = this.props;
+    const { staticData, favs, countries, weather, onSetPosition } = this.props;
 
     return (
       <Layout title='Whether Weather'>
@@ -49,9 +52,18 @@ class Favs extends React.Component {
           <br />
           {staticData[1]}
         </h1>
-        {favs.map(item => {
+        {favs.length === 0 ? (
+          <ColumnWrapper style={{ height: '75%' }}>
+            <p>
+              {staticData[2]}
+            </p>
+          </ColumnWrapper>
+        ) : null}
+        {favs.length > 0 && favs.map(item => {
           let capital = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).capital;
           let country = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).country;
+          let isFav = true;
+          let isActive = weather.latitude === item.latitude && weather.longitude && weather.latitude;
 
           return (
             <ViewListItem
@@ -61,8 +73,9 @@ class Favs extends React.Component {
               capital={capital}
               country={country}
               toggleFav={() => this.toggleFav(item.latitude, item.longitude)}
-              showWeather={() => console.log('fetch weather')}
-              active
+              showWeather={() => onSetPosition(item.latitude, item.longitude)}
+              fav={isFav}
+              active={isActive}
             />
           );
         })}
@@ -74,7 +87,10 @@ class Favs extends React.Component {
 Favs.propTypes = {
   staticData: PropTypes.instanceOf(Array).isRequired,
   countries: PropTypes.instanceOf(Object).isRequired,
+  onSetPosition: PropTypes.func.isRequired,
+  onFetchCountries: PropTypes.func.isRequired,
   favs: PropTypes.instanceOf(Object).isRequired,
+  weather: PropTypes.instanceOf(Object).isRequired,
   onSetFav: PropTypes.func.isRequired,
   onSetUnfav: PropTypes.func.isRequired
 };
