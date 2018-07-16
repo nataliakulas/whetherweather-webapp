@@ -69,6 +69,12 @@ export const ColumnWrapper = styled.div`
     align-items: center;
 `;
 
+export const RowBetweenWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`;
 
 export const RowAroundWrapper = styled.div`
     display: flex;
@@ -472,6 +478,18 @@ export const Button = styled.button`
   }
 `;
 
+export const SquareButton = styled.button`
+  width: 40px;
+  height: 40px;
+  background-color: ${theme.tertiaryBlue};
+  border: 1px solid ${theme.tertiaryBlue};
+  background-image: ${({active}) => active? 'url("/static/images/fav.svg")': 'url("/static/images/unfav.svg")' };
+  background-repeat: no-repeat;
+  background-size: 35px;
+  background-position: center;
+  margin: 10px;
+  cursor: pointer;
+`;
 
 export const Image = styled.img`
     width: 100px;

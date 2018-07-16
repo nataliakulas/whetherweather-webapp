@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import Select from 'react-select';
 
 import Layout from '../components/Layout';
-import { ColumnWrapper, SelectWrapper, Button, PanelWrapper, Image } from '../components/Styles';
+import { ColumnWrapper,RowBetweenWrapper, SelectWrapper, Button, PanelWrapper, Image, SquareButton } from '../components/Styles';
 import { SET_CITY_POSITION, FETCH_COUNTRIES_REQUEST, SET_FAV, SET_UNFAV } from '../state/actions';
 
 const mapStateToProps = (state) => ({
@@ -30,7 +30,8 @@ class Search extends React.Component {
       country: '',
       latitude: '',
       longitude: '',
-      flag: '/static/images/default.svg'
+      flag: '/static/images/default.svg',
+      fav: false
     };
   }
 
@@ -70,9 +71,13 @@ class Search extends React.Component {
     }
   };
 
+  toggleFav = ()=> {
+    console.log('fav')
+  };
+
   render() {
     const { staticData, countries } = this.props;
-    const { selected, capital, country, latitude, longitude, flag } = this.state;
+    const { selected, capital, country, latitude, longitude, flag, fav } = this.state;
 
     const options = [];
 
@@ -133,13 +138,16 @@ class Search extends React.Component {
                     &nbsp;in&nbsp;
                     {country}
                   </p>
-                  <p>
+                  <RowBetweenWrapper>
+                    <p>
                     Coordinates:&nbsp;
-                    <br />
-                    {latitude}
+                      <br />
+                      {latitude}
                     ,&nbsp;
-                    {longitude}
-                  </p>
+                      {longitude}
+                    </p>
+                    <SquareButton onClick={this.toggleFav} disabled={!capital} type="button" active={fav} />
+                  </RowBetweenWrapper>
                 </Col>
                 <Col xs={12} xl={5}>
                   <Image src={flag} alt={country} />
