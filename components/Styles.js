@@ -17,6 +17,8 @@ export const ViewWrapper = styled.section`
     height: 600px;
     position: relative;
     background-color: ${theme.primaryBlue};
+    border: 1px solid transparent;
+    border-radius: 0 2px 2px 0;
     padding: 20px;
 `;
 
@@ -25,6 +27,7 @@ export const NavigationWrapper = styled.header`
     height: 600px;
     text-align: center;
     background-color: ${theme.secondaryBlue};
+    border: 1px solid transparent;
                    
     &::before,
     &::after {
@@ -50,6 +53,8 @@ export const DisplayWrapper = styled.aside`
     height: 600px;
     position: relative;
     background-color: ${theme.light};  
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
     padding: 20px;
 `;
 
@@ -459,6 +464,7 @@ export const Button = styled.button`
   height: ${({chunk}) => chunk? '57px': '38px' };
   background-color: ${theme.tertiaryBlue};
   border: 1px solid ${theme.tertiaryBlue};
+  border-radius: 2px;
   color: ${theme.white};
   margin: 8px auto;
   cursor: pointer;
@@ -483,6 +489,7 @@ export const SquareButton = styled.button`
   height: 40px;
   background-color: ${theme.tertiaryBlue};
   border: 1px solid ${theme.tertiaryBlue};
+  border-radius: 2px;
   background-image: ${({active}) => active? 'url("/static/images/fav.svg")': 'url("/static/images/unfav.svg")' };
   background-repeat: no-repeat;
   background-size: 35px;

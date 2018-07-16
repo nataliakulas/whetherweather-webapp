@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { FETCH_CURRENT_WEATHER_SUCCESS, FETCH_CURRENT_WEATHER_FAIL, SET_USER_POSITION, SET_CITY_POSITION, FETCH_CURRENT_WEATHER_REQUEST, FETCH_COUNTRIES_REQUEST, FETCH_COUNTRIES_SUCCESS, FETCH_COUNTRIES_FAIL } from './actions';
+import { FETCH_CURRENT_WEATHER_SUCCESS, FETCH_CURRENT_WEATHER_FAIL, SET_USER_POSITION, SET_CITY_POSITION, FETCH_CURRENT_WEATHER_REQUEST, FETCH_COUNTRIES_REQUEST, FETCH_COUNTRIES_SUCCESS, FETCH_COUNTRIES_FAIL, SET_FAV, SET_UNFAV } from './actions';
 
 const INITIAL_WEATHER_STATE = {
   latitude: 52.237049,
@@ -104,8 +104,34 @@ function countriesReducer(state = INITIAL_COUNTRIES_STATE, action) {
   }
 }
 
-function favsReducer(state=INITIAL_FAVS_STATE, action) {
-  switch (action.type){
+function favsReducer(state = INITIAL_FAVS_STATE, action) {
+  switch (action.type) {
+    case SET_FAV: {
+      return {
+        ...state,
+        favs: [...state.favs,
+          {
+            latitude: action.payload.latitude,
+            longitude: action.payload.longitude
+          }
+        ]
+      };
+    }
+    case SET_UNFAV: {
+      let latitude = action.payload.latitude;
+      let longitude = action.payload.longitude;
+      let favs = state.favs;
+      let index = favs.findIndex(item => item.latitude === latitude && item.longitude === longitude);
+
+      if (index > -1) {
+        favs.splice(index, 1);
+      }
+
+      return {
+        ...state,
+        favs: favs
+      };
+    }
     default:
       return state;
   }

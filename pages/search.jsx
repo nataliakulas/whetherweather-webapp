@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import Select from 'react-select';
 
 import Layout from '../components/Layout';
-import { ColumnWrapper,RowBetweenWrapper, SelectWrapper, Button, PanelWrapper, Image, SquareButton } from '../components/Styles';
+import { ColumnWrapper, RowBetweenWrapper, SelectWrapper, Button, PanelWrapper, Image, SquareButton } from '../components/Styles';
 import { SET_CITY_POSITION, FETCH_COUNTRIES_REQUEST, SET_FAV, SET_UNFAV } from '../state/actions';
 
 const mapStateToProps = (state) => ({
@@ -36,8 +36,7 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    const { onFetchCountries,onSetFav, onSetUnfav } = this.props;
-    console.log(onSetFav,onSetUnfav);
+    const { onFetchCountries } = this.props;
     onFetchCountries();
   }
 
@@ -53,7 +52,7 @@ class Search extends React.Component {
     const { selected } = this.state;
 
     if (selected) {
-      const { onSetPosition, countries } = this.props;
+      const { onSetPosition, countries, favs } = this.props;
 
       countries.map(country => {
         if (country.capital === selected.label) {
@@ -64,15 +63,25 @@ class Search extends React.Component {
             country: country.country,
             latitude: country.latitude,
             longitude: country.longitude,
-            flag: '/static/images/flags/' + country.country.toLowerCase() + '.svg'
+            flag: '/static/images/flags/' + country.country.toLowerCase() + '.svg',
+            fav: favs.find(item => item.latitude === country.latitude && item.longitude === country.longitude)
           });
         }
       });
     }
   };
 
-  toggleFav = ()=> {
-    console.log('fav')
+  toggleFav = () => {
+    const { latitude, longitude, fav } = this.state;
+    const { favs, onSetFav, onSetUnfav } = this.props;
+
+    if (fav && favs.find(item => item.latitude === latitude && item.longitude === longitude)) {
+      onSetUnfav(latitude, longitude);
+      this.setState({ fav: false });
+    } else {
+      onSetFav(latitude, longitude);
+      this.setState({ fav: true });
+    }
   };
 
   render() {
@@ -86,12 +95,12 @@ class Search extends React.Component {
     });
 
 
-    const sortAscending = ()=> {
+    const sortAscending = () => {
       console.log('sort A to Z');
     };
 
-    const sortDescending = ()=> {
-      console.log('sort Z to A')
+    const sortDescending = () => {
+      console.log('sort Z to A');
     };
 
     return (
@@ -103,7 +112,7 @@ class Search extends React.Component {
             {staticData[1]}
           </h1>
           <ColumnWrapper style={{ width: '100%' }}>
-            <Row style={{width:'100%', maxWidth: 305}}>
+            <Row style={{ width: '100%', maxWidth: 305 }}>
               <Col xs={12} sm={6}>
                 <Button onClick={sortAscending} disabled={!options} type="button">
                   From A to Z
@@ -140,10 +149,10 @@ class Search extends React.Component {
                   </p>
                   <RowBetweenWrapper>
                     <p>
-                    Coordinates:&nbsp;
+                      Coordinates:&nbsp;
                       <br />
                       {latitude}
-                    ,&nbsp;
+                      ,&nbsp;
                       {longitude}
                     </p>
                     <SquareButton onClick={this.toggleFav} disabled={!capital} type="button" active={fav} />
@@ -167,6 +176,7 @@ Search.propTypes = {
   countries: PropTypes.instanceOf(Object).isRequired,
   onSetPosition: PropTypes.func.isRequired,
   onFetchCountries: PropTypes.func.isRequired,
+  favs: PropTypes.instanceOf(Object).isRequired,
   onSetFav: PropTypes.func.isRequired,
   onSetUnfav: PropTypes.func.isRequired
 };

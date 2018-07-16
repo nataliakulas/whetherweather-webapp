@@ -15,7 +15,7 @@ const Nav = styled.nav`
 const NavList = styled.ul`
     width: 100%;
     list-style-type: none;
-    margin: 0;
+    margin: -1px;
     padding: 0;
 `;
 
@@ -32,7 +32,7 @@ const NavItem = styled.li`
     
     &:hover {
         background-color: ${({ active }) => active ? theme.tertiaryBlue : theme.tertiaryBlue.saturate(0.5)};
-    }
+     }
     
     a {
         font-family: OpenSansBold, sans-serif;
