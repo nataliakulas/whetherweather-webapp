@@ -474,7 +474,7 @@ export const SelectWrapper = styled.div`
 export const Button = styled.button`
   width: 100%;
   max-width: 275px;
-  height: ${({chunk}) => chunk? '57px': '38px' };
+  height: ${({ chunk }) => chunk ? '57px' : '38px' };
   background-color: ${theme.tertiaryBlue};
   border: 1px solid ${theme.tertiaryBlue};
   border-radius: 2px;
@@ -486,9 +486,11 @@ export const Button = styled.button`
     outline-color: ${theme.tertiaryBlue.saturate(0.5)};
   }
   
-  &:hover(not:disabled) {
-    background-color: ${theme.tertiaryBlue.saturate(0.5)};
-    border: 1px solid ${theme.tertiaryBlue.saturate(0.5)};
+  &:hover {
+    &:not(:disabled) {
+      background-color: ${theme.tertiaryBlue.saturate(0.5)};
+      border: 1px solid ${theme.tertiaryBlue.saturate(0.5)};
+    }
   }
   
   &:disabled {
@@ -503,12 +505,28 @@ export const SquareButton = styled.button`
   background-color: ${theme.tertiaryBlue};
   border: 1px solid ${theme.tertiaryBlue};
   border-radius: 2px;
-  background-image: ${({active}) => active? 'url("/static/images/fav.svg")': 'url("/static/images/unfav.svg")' };
+  background-image: ${({ active }) => active ? 'url("/static/images/fav.svg")' : 'url("/static/images/unfav.svg")' };
   background-repeat: no-repeat;
   background-size: 35px;
   background-position: center;
   margin: 10px;
   cursor: pointer;
+  
+  &:focus {
+    outline-color: ${theme.tertiaryBlue.saturate(0.5)};
+  }
+  
+  &:hover {
+    &:not(:disabled) {
+      background-color: ${theme.tertiaryBlue.saturate(0.5)};
+      border: 1px solid ${theme.tertiaryBlue.saturate(0.5)};
+    }
+  }
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity:0.25;
+  }
 `;
 
 export const Image = styled.img`
