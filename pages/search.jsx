@@ -55,15 +55,19 @@ class Search extends React.Component {
     const options = [];
 
     countries.forEach(country => {
-      options.push({ value: country.capital, label: country.capital + ', ' + country.country });
+      options.push({ value: [country.capital, country.country], label: country.capital + ', ' + country.country });
     });
 
-    const sortAscending = () => {
-      console.log('sort A to Z');
-    };
+    const sort = (type, method) => {
+      options.sort((a, b) => {
+        let el = type === 'capitals' ? 0 : 1;
 
-    const sortDescending = () => {
-      console.log('sort Z to A');
+        if (method === 'ascending') {
+          return a.value[el].localeCompare(b.value[el]);
+        } else {
+          return b.value[el].localeCompare(a.value[el]);
+        }
+      });
     };
 
     return (
@@ -76,13 +80,25 @@ class Search extends React.Component {
         <ColumnWrapper style={{ height: 'calc(100% - 70px)' }}>
           <Row style={{ width: '100%', maxWidth: 305 }}>
             <Col xs={12} sm={6}>
-              <Button onClick={sortAscending} disabled={!options} type="button">
-                From A to Z
+              <Button onClick={() => sort('capitals', 'ascending')} disabled={!options} type="button">
+                Capitals A to Z
               </Button>
             </Col>
             <Col xs={12} sm={6}>
-              <Button onClick={sortDescending} disabled={!options} type="button">
-                From Z to A
+              <Button onClick={() => sort('capitals', 'descending')} disabled={!options} type="button">
+                Capitals Z to A
+              </Button>
+            </Col>
+          </Row>
+          <Row style={{ width: '100%', maxWidth: 305 }}>
+            <Col xs={12} sm={6}>
+              <Button onClick={() => sort('countries', 'ascending')} disabled={!options} type="button">
+                Countries A to Z
+              </Button>
+            </Col>
+            <Col xs={12} sm={6}>
+              <Button onClick={() => sort('countries', 'descending')} disabled={!options} type="button">
+                Countries Z to A
               </Button>
             </Col>
           </Row>
