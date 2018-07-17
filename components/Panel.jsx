@@ -62,8 +62,8 @@ Panel.defaultProps = {
 Panel.propTypes = {
   capital: PropTypes.string,
   country: PropTypes.string,
-  longitude: PropTypes.number.isRequired,
-  latitude: PropTypes.number.isRequired,
+  longitude:PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  latitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   toggleFav: PropTypes.func.isRequired,
   fav: PropTypes.bool.isRequired
 };

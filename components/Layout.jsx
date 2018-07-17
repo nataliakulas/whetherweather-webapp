@@ -6,7 +6,6 @@ import { ThemeProvider, injectGlobal } from 'styled-components';
 import styledNormalize from 'styled-normalize';
 import colors from '../shared/colors';
 import OpenSansRegular from '../static/fonts/Open_Sans/OpenSans-Regular.ttf';
-import OpenSansBold from '../static/fonts/Open_Sans/OpenSans-Bold.ttf';
 import PoppinsRegular from '../static/fonts/Poppins/Poppins-Regular.ttf';
 
 import { BackgroundWrapper, ViewWrapper } from './Styles';
@@ -20,11 +19,6 @@ injectGlobal`
     @font-face {
         font-family: OpenSansRegular;
         src: url('${OpenSansRegular}') format('truetype');
-    }
-    
-    @font-face {
-        font-family: OpenSansBold;
-        src: url('${OpenSansBold}') format('truetype');
     }
     
     @font-face {

@@ -7,7 +7,7 @@ import { DisplayWrapper } from './Styles';
 import Box from './Box';
 import Panel from './Panel';
 
-import { FETCH_CURRENT_WEATHER_REQUEST } from '../state/actions';
+import { FETCH_CURRENT_WEATHER_REQUEST, SET_FAV, SET_UNFAV } from '../state/actions';
 
 const mapStateToProps = (state) => ({
   display: state.displayState,
@@ -15,7 +15,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchCurrentWeather: (position) => dispatch({ type: FETCH_CURRENT_WEATHER_REQUEST, payload: position })
+  onFetchCurrentWeather: (position) => dispatch({ type: FETCH_CURRENT_WEATHER_REQUEST, payload: position }),
+  onSetFav: (latitude, longitude) => dispatch({ type: SET_FAV, payload: { latitude, longitude } }),
+  onSetUnfav: (latitude, longitude) => dispatch({ type: SET_UNFAV, payload: { latitude, longitude } })
 });
 
 class Display extends React.Component {

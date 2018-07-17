@@ -1,5 +1,6 @@
 import React from 'react';
-import Link from 'next/link';
+import PropTypes from 'prop-types';
+import Router, { withRouter } from 'next/router';
 import styled from 'styled-components';
 import { NavigationWrapper } from './Styles';
 import theme from '../shared/theme';
@@ -39,9 +40,10 @@ const NavItem = styled.li`
         background-color: ${({ active }) => active ? theme.tertiaryBlue : theme.tertiaryBlue.saturate(0.5)};
      }
     
-    a {
-        font-family: OpenSansBold, sans-serif;
+    span {
+        font-family: OpenSansRegular, sans-serif;
         font-size: 14px;
+        font-weight: bold;
         text-align: center;
         text-transform: uppercase;
         text-decoration: none;
@@ -70,62 +72,35 @@ const FavoritesNavIcon = styled(NavIcon)`
     background-image: url("/static/images/star.svg");
 `;
 
-class Navigation extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      location: false,
-      search: false,
-      favorites: false
-    };
-  }
+const Navigation = ({ router }) => (
+  <NavigationWrapper>
+    <Nav>
+      <NavList>
+        <NavItem onClick={() => Router.push('/location')} active={router.pathname === '/location'}>
+          <LocationNavIcon />
+          <span>
+              Location
+          </span>
+        </NavItem>
+        <NavItem onClick={() => Router.push('/search')} active={router.pathname === '/search'}>
+          <SearchNavIcon />
+          <span>
+              Search
+          </span>
+        </NavItem>
+        <NavItem onClick={() => Router.push('/favs')} active={router.pathname === '/favs'}>
+          <FavoritesNavIcon />
+          <span>
+              Favs
+          </span>
+        </NavItem>
+      </NavList>
+    </Nav>
+  </NavigationWrapper>
+);
 
-  activate(section) {
-    switch (section) {
-      case 'location':
-        this.setState({ location: true, search: false, favorites: false });
-        break;
-      case 'search':
-        this.setState({ location: false, search: true, favorites: false });
-        break;
-      case 'favorites':
-        this.setState({ location: false, search: false, favorites: true });
-        break;
-      default:
-        this.setState({ location: true, search: false, favorites: false });
-    }
-  }
+Navigation.propTypes = {
+  router: PropTypes.instanceOf(Object).isRequired
+};
 
-  render() {
-    const { location, search, favorites } = this.state;
-
-    return (
-      <NavigationWrapper>
-        <Nav>
-          <NavList>
-            <NavItem onClick={() => this.activate('location')} active={location}>
-              <LocationNavIcon />
-              <Link href='/location'>
-                Location
-              </Link>
-            </NavItem>
-            <NavItem onClick={() => this.activate('search')} active={search}>
-              <SearchNavIcon />
-              <Link href='/search'>
-                Search
-              </Link>
-            </NavItem>
-            <NavItem onClick={() => this.activate('favorites')} active={favorites}>
-              <FavoritesNavIcon />
-              <Link href='/favs'>
-                Favs
-              </Link>
-            </NavItem>
-          </NavList>
-        </Nav>
-      </NavigationWrapper>
-    );
-  }
-}
-
-export default Navigation;
+export default withRouter(Navigation);
