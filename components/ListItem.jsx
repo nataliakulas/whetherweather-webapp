@@ -47,9 +47,9 @@ class ListItem extends React.Component {
           </Col>
           <Col xs={12} xl={8}>
             <p style={{ fontSize: 14, margin: '0 10px' }}>
-              {position[0] && position[1] !== '' ?
-                position[0] + ', ' + position[1] : 'Your location'
-              }
+              {position[0]}
+              {position[1] === 'location' ? ' ' : ', '}
+              {position[1]}
               <br />
               {latitude}
               ,&nbsp;

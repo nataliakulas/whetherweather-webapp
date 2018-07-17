@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
 import Layout from '../components/Layout';
-import { ColumnWrapper } from '../components/Styles';
-import ViewListItem from '../components/ListItem';
+import { ColumnWrapper, ListWrapper, Input } from '../components/Styles';
+import ListItem from '../components/ListItem';
 import { SET_FAV, SET_POSITION, SET_UNFAV, setAction } from '../state/actions';
 
 const mapStateToProps = (state) => ({
@@ -22,8 +22,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Favs extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { result: '' };
+  }
+
   static async getInitialProps() {
-    return { staticData: ['Favs,', 'list.', 'Sorry, no favs'] };
+    return { staticData: ['Best-loved, probably', 'whatever the weather.', 'Sorry, no favs'] };
   }
 
   toggleFav = (latitude, longitude) => {
@@ -38,6 +43,7 @@ class Favs extends React.Component {
 
   render() {
     const { staticData, favs, countries, display, onSetPosition } = this.props;
+    const { result } = this.state;
 
     return (
       <Layout title='Whether Weather'>
@@ -46,6 +52,12 @@ class Favs extends React.Component {
           <br />
           {staticData[1]}
         </h1>
+        <Input
+          type='search'
+          value={result}
+          placeholder='Search for fav'
+          onChange={e => this.setState({ result: e.target.value.substr(0, 20) })}
+        />
         {favs.length === 0 ? (
           <ColumnWrapper style={{ height: '75%' }}>
             <p>
@@ -53,35 +65,39 @@ class Favs extends React.Component {
             </p>
           </ColumnWrapper>
         ) : (
-          favs.map(fav => {
+          <ListWrapper>
+            {favs.map(fav => {
 
-            let capital = '';
-            let country = '';
-            let latitude = fav.latitude;
-            let longitude = fav.longitude;
-            let isFav = true;
-            let isActive = display.latitude === fav.latitude && display.longitude && display.latitude;
+              let capital = 'My';
+              let country = 'location';
+              let latitude = fav.latitude;
+              let longitude = fav.longitude;
+              let isFav = true;
+              let isActive = display.latitude === fav.latitude && display.longitude && display.latitude;
 
-            countries && countries.forEach(item => {
-              if (fav.latitude === item.latitude && fav.longitude === item.longitude) {
-                capital = item.capital;
-                country = item.country;
+              countries && countries.forEach(item => {
+                if (fav.latitude === item.latitude && fav.longitude === item.longitude) {
+                  capital = item.capital;
+                  country = item.country;
+                }
+              });
+
+              if ((capital.toLowerCase().indexOf(result.toLowerCase()) !== -1) || (country.toLowerCase().indexOf(result.toLowerCase()) !== -1)) {
+                return (
+                  <ListItem
+                    key={latitude + longitude}
+                    latitude={latitude}
+                    longitude={longitude}
+                    position={[capital, country]}
+                    toggleFav={() => this.toggleFav(latitude, longitude)}
+                    showWeather={() => onSetPosition(latitude, longitude)}
+                    fav={isFav}
+                    active={isActive}
+                  />
+                );
               }
-            });
-
-            return (
-              <ViewListItem
-                key={latitude + longitude}
-                latitude={latitude}
-                longitude={longitude}
-                position={[capital, country]}
-                toggleFav={() => this.toggleFav(latitude, longitude)}
-                showWeather={() => onSetPosition(latitude, longitude)}
-                fav={isFav}
-                active={isActive}
-              />
-            );
-          })
+            })}
+          </ListWrapper>
         )}
       </Layout>
     );

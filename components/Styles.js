@@ -58,6 +58,13 @@ export const DisplayWrapper = styled.aside`
     padding: 20px 0;
 `;
 
+export const ListWrapper = styled.div`
+  width: 100%;
+  height: 340px;
+  overflow-y: auto;
+  overflow-x: hidden;
+`;
+
 export const BoxWrapper = styled.div`
   width: 100%;
   margin-bottom: 30px;
@@ -533,4 +540,43 @@ export const Image = styled.img`
     width: 100px;
     height: 100px;
     margin: 10px;
+`;
+
+export const Input = styled.input`
+    width: 100%;
+    height: 38px;
+    color: ${theme.medium};
+    line-height: 34px;
+    background-color: ${theme.light};
+    border-radius: 0;
+    border: 1px solid ${theme.tertiaryBlue};
+    overflow: hidden;
+    margin: 10px auto;
+    padding-left: 10px;
+    position: relative;
+    
+    &::-webkit-input-placeholder {
+      color: ${theme.tertiaryBlue};
+    }
+    
+    &::-webkit-search-cancel-button {
+     -webkit-appearance: none;
+     
+     width: 36px;
+     height: 36px;
+     
+     position: absolute;
+     top:0;
+     right: 0;
+     
+     background-image: url("/static/images/cancel.svg");
+     background-repeat: no-repeat;
+     background-size: 9px;  
+     background-position: center;
+     cursor: pointer;
+     
+       &:hover {
+       background-image: url("/static/images/cancel-hover.svg");
+       }
+     }        
 `;
