@@ -1,34 +1,64 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+
 import Layout from '../components/Layout';
 import { ColumnWrapper } from '../components/Styles';
+import { SET_POSITION, setAction } from '../state/actions';
 
 
-const Index = () => (
-  <Layout title='Whether Weather'>
-    <ColumnWrapper>
-      <h1>
-        Whether Weather
-      </h1>
-      <p style={{ textAlign: 'center', fontStyle: 'italic' }}>
-        Whether the weather be fine,
-        <br />
-        Or whether the weather be not,
-        <br />
-        Whether the weather be cold,
-        <br />
-        Or whether the weather be hot,
-        <br />
-        We&apos;ll weather the weather
-        <br />
-        Whatever the weather,
-        <br />
-        Whether we like it or not.
-      </p>
-      <p style={{fontSize: 14}}>
-        ---&nbsp;anonymous&nbsp;---
-      </p>
-    </ColumnWrapper>
-  </Layout>
-);
+const mapDispatchToProps = (dispatch) => ({
+  onSetPosition: (latitude, longitude) => dispatch(setAction(SET_POSITION, { latitude, longitude }))
+});
 
-export default Index;
+class Location extends React.Component {
+  componentDidMount() {
+    const { onSetPosition } = this.props;
+    const geolocation = window.navigator.geolocation;
+
+    function roundTo2(number) {
+      return Math.round(number * 100) / 100;
+    }
+
+    new Promise((resolve) => {
+      if (!geolocation) {
+        window.alert('Gelocation not supported');
+      }
+
+      geolocation.getCurrentPosition((position) => {
+        resolve(position);
+        onSetPosition(roundTo2(position.coords.latitude), roundTo2(position.coords.longitude));
+      });
+    });
+  }
+
+  static async getInitialProps() {
+    return { staticData: ['Current weather.', 'Whether it\'s good or bad.'] };
+  }
+
+  render() {
+    const { staticData } = this.props;
+
+    return (
+      <Layout title='Whether Weather'>
+        <ColumnWrapper>
+          <h1>
+            {staticData[0]}
+            <br />
+            {staticData[1]}
+          </h1>
+        </ColumnWrapper>
+      </Layout>
+    );
+  }
+}
+
+Location.propTypes = {
+  staticData: PropTypes.instanceOf(Array).isRequired,
+  onSetPosition: PropTypes.func.isRequired
+};
+
+export default compose(
+  connect(null, mapDispatchToProps)
+)(Location);

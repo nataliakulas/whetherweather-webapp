@@ -76,7 +76,7 @@ const Navigation = ({ router }) => (
   <NavigationWrapper>
     <Nav>
       <NavList>
-        <NavItem onClick={() => Router.push('/location')} active={router.pathname === '/location'}>
+        <NavItem onClick={() => Router.push('/', '/location')} active={router.pathname === ('/' || '/location')}>
           <LocationNavIcon />
           <span>
               Location
