@@ -17,6 +17,10 @@ class Location extends React.Component {
     const { onSetPosition } = this.props;
     const geolocation = window.navigator.geolocation;
 
+    function roundTo2(number) {
+      return Math.round(number * 100) / 100;
+    }
+
     new Promise((resolve) => {
       if (!geolocation) {
         window.alert('Gelocation not supported');
@@ -24,7 +28,7 @@ class Location extends React.Component {
 
       geolocation.getCurrentPosition((position) => {
         resolve(position);
-        onSetPosition(position.coords.latitude, position.coords.longitude);
+        onSetPosition(roundTo2(position.coords.latitude), roundTo2(position.coords.longitude));
       });
     });
   }

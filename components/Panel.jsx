@@ -44,7 +44,7 @@ class Panel extends React.Component {
           </p>
           <SquareButton
             onClick={toggleFav}
-            disabled={!latitude || !longitude}
+            disabled={latitude && longitude === '---'}
             type="button"
             active={fav}
           />
@@ -62,7 +62,7 @@ Panel.defaultProps = {
 Panel.propTypes = {
   capital: PropTypes.string,
   country: PropTypes.string,
-  longitude:PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  longitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   latitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   toggleFav: PropTypes.func.isRequired,
   fav: PropTypes.bool.isRequired

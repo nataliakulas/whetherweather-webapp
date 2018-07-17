@@ -11,7 +11,8 @@ import { FETCH_CURRENT_WEATHER_REQUEST, SET_FAV, SET_UNFAV, setAction } from '..
 
 const mapStateToProps = (state) => ({
   display: state.displayState,
-  countries: state.countriesState.countries
+  countries: state.countriesState.countries,
+  favs: state.favsState.favs
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -26,38 +27,43 @@ class Display extends React.Component {
     onFetchCurrentWeather(display);
   }
 
-  toggleFav = (latitude, longitude) => {
-    const { favs, onSetFav, onSetUnfav } = this.props;
+  toggleFav = () => {
+    const { display, favs, onSetFav, onSetUnfav } = this.props;
 
-    if (favs.find(item => item.latitude === latitude && item.longitude === longitude)) {
-      onSetUnfav(latitude, longitude);
+    if (favs.find(fav => fav.latitude === display.latitude && fav.longitude === display.longitude)) {
+      onSetUnfav(display.latitude, display.longitude);
     } else {
-      onSetFav(latitude, longitude);
+      onSetFav(display.latitude, display.longitude);
     }
   };
 
   render() {
-    const { display, countries } = this.props;
+    const { display, countries, favs } = this.props;
+    console.log(favs);
 
     let capital = '---';
     let country = '---';
     let latitude = '---';
     let longitude = '---';
-
-    function roundTo2(number) {
-      return Math.round(number * 100) / 100;
-    }
+    let isFav = false;
 
     if (display.latitude !== '---' && display.longitude !== '---') {
-      latitude = roundTo2(display.latitude);
-      longitude = roundTo2(display.longitude);
-
+      latitude = display.latitude;
+      longitude = display.longitude;
 
       if (countries.length > 0) {
         countries.forEach(item => {
           if (item.latitude === latitude && item.longitude === longitude) {
             capital = item.capital;
             country = item.country;
+          }
+        });
+      }
+
+      if (favs.length > 0) {
+        favs.forEach(item => {
+          if (item.latitude === latitude && item.longitude === longitude) {
+            isFav = true;
           }
         });
       }
@@ -81,7 +87,7 @@ class Display extends React.Component {
           latitude={latitude}
           longitude={longitude}
           toggleFav={this.toggleFav}
-          fav
+          fav={isFav}
         />
       </DisplayWrapper>
     );

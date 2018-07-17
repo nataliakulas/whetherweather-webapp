@@ -22,6 +22,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Favs extends React.Component {
+  componentDidUpdate(props) {
+    console.log(props);
+  }
+
   static async getInitialProps() {
     return { staticData: ['Favs,', 'list.', 'Sorry, no favs'] };
   }
@@ -54,8 +58,16 @@ class Favs extends React.Component {
           </ColumnWrapper>
         ) : null}
         {favs.length > 0 && favs.map(item => {
-          let capital = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).capital;
-          let country = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).country;
+          let capital = '';
+          let country = '';
+
+          if (!favs.capital || !favs.country) {
+            console.log('no data');
+          } else {
+            capital = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).capital;
+            country = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).country;
+          }
+
           let isFav = true;
           let isActive = display.latitude === item.latitude && display.longitude && display.latitude;
 
