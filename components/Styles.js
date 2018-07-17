@@ -114,7 +114,7 @@ export const SelectWrapper = styled.div`
 
 .Select {
   position: relative;
-  margin: 10px 0;
+  margin: 30px 0;
 }
 
 .Select input::-webkit-contacts-auto-fill-button,
@@ -414,7 +414,7 @@ export const SelectWrapper = styled.div`
   box-shadow: none;
   box-sizing: border-box;
   margin-top: -1px;
-  max-height: 200px;
+  max-height: 284px;
   position: absolute;
   left: 0;
   top: 100%;
@@ -424,7 +424,7 @@ export const SelectWrapper = styled.div`
 }
 
 .Select-menu {
-  max-height: 198px;
+  max-height: 284px;
   overflow-y: auto;
 }
 
@@ -481,12 +481,12 @@ export const SelectWrapper = styled.div`
 export const Button = styled.button`
   width: 100%;
   max-width: 275px;
-  height: ${({ chunk }) => chunk ? '57px' : '38px' };
+  height: ${({ chunk }) => chunk ? '77px' : '38px' };
+  margin: ${({ chunk }) => chunk ? '30px auto' : '8px auto' };
   background-color: ${theme.tertiaryBlue};
   border: 1px solid ${theme.tertiaryBlue};
   border-radius: 2px;
   color: ${theme.white};
-  margin: 8px auto;
   cursor: pointer;
   
   &:focus {

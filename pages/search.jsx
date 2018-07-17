@@ -6,6 +6,7 @@ import { compose } from 'recompose';
 import Select from 'react-select';
 
 import Layout from '../components/Layout';
+import InputRadio from '../components/InputRadio';
 import { ColumnWrapper, SelectWrapper, Button } from '../components/Styles';
 import { SET_POSITION, setAction } from '../state/actions';
 
@@ -22,8 +23,22 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: ''
+      selected: '',
+      options: '',
+      items: 'countries',
+      sorted: 'ascending'
     };
+  }
+
+  componentDidMount() {
+    const { countries } = this.props;
+    const options = [];
+
+    countries && countries.forEach(country => {
+      options.push({ value: [country.capital, country.country], label: country.capital + ', ' + country.country });
+    });
+
+    this.setState({ options: options });
   }
 
   static async getInitialProps() {
@@ -39,35 +54,35 @@ class Search extends React.Component {
 
     if (selected) {
       const { onSetPosition, countries } = this.props;
+      let capital = selected.value[0];
 
       countries.map(country => {
-        if (country.capital === selected.value) {
+        if (country.capital === capital) {
           onSetPosition(country.latitude, country.longitude);
         }
       });
     }
   };
 
+
   render() {
-    const { staticData, countries } = this.props;
-    const { selected } = this.state;
-
-    const options = [];
-
-    countries.forEach(country => {
-      options.push({ value: [country.capital, country.country], label: country.capital + ', ' + country.country });
-    });
+    const { staticData } = this.props;
+    const { selected, options, items, sorted } = this.state;
 
     const sort = (type, method) => {
       options.sort((a, b) => {
         let el = type === 'capitals' ? 0 : 1;
 
         if (method === 'ascending') {
+          // console.log(method);
           return a.value[el].localeCompare(b.value[el]);
         } else {
+          // console.log(method);
           return b.value[el].localeCompare(a.value[el]);
         }
       });
+
+      this.setState({ items: type, sorted: method });
     };
 
     return (
@@ -77,31 +92,7 @@ class Search extends React.Component {
           <br />
           {staticData[1]}
         </h1>
-        <ColumnWrapper style={{ height: 'calc(100% - 70px)' }}>
-          <Row style={{ width: '100%', maxWidth: 305 }}>
-            <Col xs={12} sm={6}>
-              <Button onClick={() => sort('capitals', 'ascending')} disabled={!options} type="button">
-                Capitals A to Z
-              </Button>
-            </Col>
-            <Col xs={12} sm={6}>
-              <Button onClick={() => sort('capitals', 'descending')} disabled={!options} type="button">
-                Capitals Z to A
-              </Button>
-            </Col>
-          </Row>
-          <Row style={{ width: '100%', maxWidth: 305 }}>
-            <Col xs={12} sm={6}>
-              <Button onClick={() => sort('countries', 'ascending')} disabled={!options} type="button">
-                Countries A to Z
-              </Button>
-            </Col>
-            <Col xs={12} sm={6}>
-              <Button onClick={() => sort('countries', 'descending')} disabled={!options} type="button">
-                Countries Z to A
-              </Button>
-            </Col>
-          </Row>
+        <ColumnWrapper style={{ height: 'calc(100% - 100px)' }}>
           <SelectWrapper>
             <Select
               disabled={!options}
@@ -112,6 +103,44 @@ class Search extends React.Component {
               options={options}
             />
           </SelectWrapper>
+          <Row style={{ width: '100%', maxWidth: 305 }}>
+            <Col xs={12}>
+              <InputRadio
+                name="countriesAtoZ"
+                checked={items === 'countries' && sorted === 'ascending'}
+                onChange={() => sort('countries', 'ascending')}
+              >
+                Countries A to Z
+              </InputRadio>
+            </Col>
+            <Col xs={12}>
+              <InputRadio
+                name="countriesZtoA"
+                checked={items === 'countries' && sorted === 'descending'}
+                onChange={() => sort('countries', 'descending')}
+              >
+                Countries Z to A
+              </InputRadio>
+            </Col>
+            <Col xs={12}>
+              <InputRadio
+                name="capitalsAtoZ"
+                checked={items === 'capitals' && sorted === 'ascending'}
+                onChange={() => sort('capitals', 'ascending')}
+              >
+                Capitals A to Z
+              </InputRadio>
+            </Col>
+            <Col xs={12}>
+              <InputRadio
+                name="capitalsZtoA"
+                checked={items === 'capitals' && sorted === 'descending'}
+                onChange={() => sort('capitals', 'descending')}
+              >
+                Capitals Z to A
+              </InputRadio>
+            </Col>
+          </Row>
           <Button onClick={this.handleSearch} disabled={!options} type="button" chunk>
             Check IT!
           </Button>
