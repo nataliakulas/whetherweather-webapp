@@ -28,7 +28,7 @@ class ListItem extends React.Component {
   }
 
   render() {
-    const { latitude, longitude, capital, country, toggleFav, showWeather, active, fav } = this.props;
+    const { latitude, longitude, position, toggleFav, showWeather, active, fav } = this.props;
     const { loading } = this.state;
 
     if (loading) {
@@ -47,9 +47,9 @@ class ListItem extends React.Component {
           </Col>
           <Col xs={12} xl={8}>
             <p style={{ fontSize: 14, margin: '0 10px' }}>
-              {capital ? capital : null}
-              ,&nbsp;
-              {country ? country : null}
+              {position[0] && position[1] !== '' ?
+                position[0] + ', ' + position[1] : 'Your location'
+              }
               <br />
               {latitude}
               ,&nbsp;
@@ -68,13 +68,11 @@ class ListItem extends React.Component {
 }
 
 ListItem.defaultProps = {
-  capital: '',
-  country: ''
+  position: []
 };
 
 ListItem.propTypes = {
-  capital: PropTypes.string,
-  country: PropTypes.string,
+  position: PropTypes.instanceOf(Array),
   longitude: PropTypes.number.isRequired,
   latitude: PropTypes.number.isRequired,
   toggleFav: PropTypes.func.isRequired,

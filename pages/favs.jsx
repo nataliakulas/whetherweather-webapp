@@ -22,10 +22,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Favs extends React.Component {
-  componentDidUpdate(props) {
-    console.log(props);
-  }
-
   static async getInitialProps() {
     return { staticData: ['Favs,', 'list.', 'Sorry, no favs'] };
   }
@@ -56,39 +52,42 @@ class Favs extends React.Component {
               {staticData[2]}
             </p>
           </ColumnWrapper>
-        ) : null}
-        {favs.length > 0 && favs.map(item => {
-          let capital = '';
-          let country = '';
+        ) : (
+          favs.map(fav => {
 
-          if (!favs.capital || !favs.country) {
-            console.log('no data');
-          } else {
-            capital = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).capital;
-            country = countries.find(country => country.latitude === item.latitude && country.longitude === item.longitude).country;
-          }
+            let capital = '';
+            let country = '';
+            let latitude = fav.latitude;
+            let longitude = fav.longitude;
+            let isFav = true;
+            let isActive = display.latitude === fav.latitude && display.longitude && display.latitude;
 
-          let isFav = true;
-          let isActive = display.latitude === item.latitude && display.longitude && display.latitude;
+            countries && countries.forEach(item => {
+              if (fav.latitude === item.latitude && fav.longitude === item.longitude) {
+                capital = item.capital;
+                country = item.country;
+              }
+            });
 
-          return (
-            <ViewListItem
-              key={item.latitude + item.longitude}
-              latitude={item.latitude}
-              longitude={item.longitude}
-              capital={capital}
-              country={country}
-              toggleFav={() => this.toggleFav(item.latitude, item.longitude)}
-              showWeather={() => onSetPosition(item.latitude, item.longitude)}
-              fav={isFav}
-              active={isActive}
-            />
-          );
-        })}
+            return (
+              <ViewListItem
+                key={latitude + longitude}
+                latitude={latitude}
+                longitude={longitude}
+                position={[capital, country]}
+                toggleFav={() => this.toggleFav(latitude, longitude)}
+                showWeather={() => onSetPosition(latitude, longitude)}
+                fav={isFav}
+                active={isActive}
+              />
+            );
+          })
+        )}
       </Layout>
     );
   }
 }
+
 
 Favs.propTypes = {
   staticData: PropTypes.instanceOf(Array).isRequired,

@@ -39,7 +39,6 @@ class Display extends React.Component {
 
   render() {
     const { display, countries, favs } = this.props;
-    console.log(favs);
 
     let capital = '---';
     let country = '---';
