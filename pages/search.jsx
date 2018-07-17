@@ -7,7 +7,7 @@ import Select from 'react-select';
 
 import Layout from '../components/Layout';
 import { ColumnWrapper, SelectWrapper, Button } from '../components/Styles';
-import { SET_POSITION } from '../state/actions';
+import { SET_POSITION, setAction } from '../state/actions';
 
 const mapStateToProps = (state) => ({
   countries: state.countriesState.countries,
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSetPosition: (latitude, longitude) => dispatch({ type: SET_POSITION, payload: { latitude, longitude } })
+  onSetPosition: (latitude, longitude) => dispatch(setAction(SET_POSITION, { latitude, longitude }))
 });
 
 class Search extends React.Component {
@@ -73,7 +73,7 @@ class Search extends React.Component {
           <br />
           {staticData[1]}
         </h1>
-        <ColumnWrapper style={{height: 'calc(100% - 70px)'}}>
+        <ColumnWrapper style={{ height: 'calc(100% - 70px)' }}>
           <Row style={{ width: '100%', maxWidth: 305 }}>
             <Col xs={12} sm={6}>
               <Button onClick={sortAscending} disabled={!options} type="button">

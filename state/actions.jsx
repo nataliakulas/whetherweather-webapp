@@ -10,3 +10,10 @@ export const FETCH_COUNTRIES_FAIL = 'FETCH_COUNTRIES_FAIL';
 
 export const SET_FAV = 'SET_FAV';
 export const SET_UNFAV = 'SET_UNFAV';
+
+export function setAction(type, payload) {
+  return {
+    type: type,
+    payload: payload
+  };
+}

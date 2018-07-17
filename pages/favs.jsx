@@ -7,7 +7,7 @@ import { compose } from 'recompose';
 import Layout from '../components/Layout';
 import { ColumnWrapper } from '../components/Styles';
 import ViewListItem from '../components/ListItem';
-import { FETCH_COUNTRIES_REQUEST, SET_POSITION,SET_FAV, SET_UNFAV } from '../state/actions';
+import { SET_FAV, SET_POSITION, SET_UNFAV, setAction } from '../state/actions';
 
 const mapStateToProps = (state) => ({
   display: state.displayState,
@@ -16,18 +16,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchCountries: () => dispatch({ type: FETCH_COUNTRIES_REQUEST }),
-  onSetPosition: (latitude, longitude) => dispatch({ type: SET_POSITION, payload: { latitude, longitude } }),
-  onSetFav: (latitude, longitude) => dispatch({ type: SET_FAV, payload: { latitude, longitude } }),
-  onSetUnfav: (latitude, longitude) => dispatch({ type: SET_UNFAV, payload: { latitude, longitude } })
+  onSetPosition: (latitude, longitude) => dispatch(setAction(SET_POSITION, { latitude, longitude })),
+  onSetFav: (latitude, longitude) => dispatch(setAction(SET_FAV, { latitude, longitude })),
+  onSetUnfav: (latitude, longitude) => dispatch(setAction(SET_UNFAV, { latitude, longitude }))
 });
 
 class Favs extends React.Component {
-  componentDidMount() {
-    const { onFetchCountries } = this.props;
-    onFetchCountries();
-  }
-
   static async getInitialProps() {
     return { staticData: ['Favs,', 'list.', 'Sorry, no favs'] };
   }
@@ -88,7 +82,6 @@ Favs.propTypes = {
   staticData: PropTypes.instanceOf(Array).isRequired,
   countries: PropTypes.instanceOf(Object).isRequired,
   onSetPosition: PropTypes.func.isRequired,
-  onFetchCountries: PropTypes.func.isRequired,
   favs: PropTypes.instanceOf(Object).isRequired,
   display: PropTypes.instanceOf(Object).isRequired,
   onSetFav: PropTypes.func.isRequired,

@@ -5,15 +5,14 @@ import { compose } from 'recompose';
 
 import Layout from '../components/Layout';
 import { ColumnWrapper } from '../components/Styles';
-import { SET_POSITION } from '../state/actions';
+import { SET_POSITION, setAction } from '../state/actions';
 
 
 const mapDispatchToProps = (dispatch) => ({
-  onSetPosition: (latitude, longitude) => dispatch({ type: SET_POSITION, payload: { latitude, longitude } })
+  onSetPosition: (latitude, longitude) => dispatch(setAction(SET_POSITION, { latitude, longitude }))
 });
 
 class Location extends React.Component {
-
   componentDidMount() {
     const { onSetPosition } = this.props;
     const geolocation = window.navigator.geolocation;
