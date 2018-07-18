@@ -7,6 +7,7 @@ import theme from '../shared/theme';
 import { SquareButton, Button } from './Styles';
 
 const ListItemWrapper = styled.div`
+    width: 100%;
     margin: 10px auto;
     background-color: ${({ active }) => active ? theme.light : theme.primaryBlue };
     border: 1px solid;
