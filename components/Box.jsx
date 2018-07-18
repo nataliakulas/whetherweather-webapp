@@ -47,7 +47,7 @@ class Box extends React.Component {
     return (
       <BoxWrapper>
         <Row>
-          <Col xs={4} md={3} lg={4} offset={{ xs: 1, md: 2, lg: 1 }}>
+          <Col xs={4} md={3} lg={5} offset={{ xs: 1, md: 2, lg: 0 }}>
             <Image
               src={
                 icon === '---' ?
@@ -57,21 +57,21 @@ class Box extends React.Component {
               alt={icon}
             />
           </Col>
-          <Col xs={6} lg={5}>
+          <Col xs={6}>
             <h2>
               {summary}
             </h2>
           </Col>
         </Row>
         <Row>
-          <Col xs={8} lg={5} offset={{ xs: 2, lg: 1 }}>
+          <Col xs={8} lg={6} offset={{ xs: 2, lg: 0 }}>
             <p>
               Temperature:&nbsp;
               {isNaN(roundTo1(temperature)) ? '---' : roundTo1(temperature)}
               &deg;C
             </p>
           </Col>
-          <Col xs={8} lg={5} offset={{ xs: 2, lg: 0 }}>
+          <Col xs={8} lg={6} offset={{ xs: 2, lg: 0 }}>
             <p>
               Pressure:&nbsp;
               {isNaN(roundTo1(pressure)) ? '---' : roundTo1(pressure)}
@@ -80,14 +80,14 @@ class Box extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col xs={8} lg={5} offset={{ xs: 2, lg: 1 }}>
+          <Col xs={8} lg={6} offset={{ xs: 2, lg: 0 }}>
             <p>
               Humidity:&nbsp;
               {isNaN(roundTo1(humidity)) ? '---' : roundTo1(humidity) * 100}
               &nbsp;%
             </p>
           </Col>
-          <Col xs={8} lg={5} offset={{ xs: 2, lg: 0 }}>
+          <Col xs={8} lg={6} offset={{ xs: 2, lg: 0 }}>
             <p>
               Cloudiness:&nbsp;
               {isNaN(roundTo1(cloudCover)) ? '---' : roundTo1(cloudCover) * 100}
@@ -96,7 +96,7 @@ class Box extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col xs={10} lg={11} offset={{ xs: 2, lg: 1 }} style={{ display: 'flex', alignItems: 'center' }}>
+          <Col xs={10} lg={12} offset={{ xs: 2, lg: 0 }} style={{ display: 'flex', alignItems: 'center' }}>
             <p>
               Wind:&nbsp;
               {isNaN(roundTo1(windSpeed)) ? '---' : roundTo1(windSpeed)}

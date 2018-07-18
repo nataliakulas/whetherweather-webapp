@@ -107,6 +107,7 @@ export const PanelWrapper = styled.div`
   margin-bottom: 25px;
   
     @media (min-width: 992px) {
+        width: 100%;    
         height: 165px;
         padding: 20px 45px;
         margin-bottom: 0;
@@ -502,7 +503,7 @@ export const SelectWrapper = styled.div`
 export const Button = styled.button`
   width: 100%;
   max-width: 275px;
-  height: ${({ chunk }) => chunk ? '77px' : '38px' };
+  min-height: ${({ chunk }) => chunk ? '77px' : '38px' };
   margin: ${({ chunk }) => chunk ? '30px auto' : '8px auto' };
   background-color: ${theme.tertiaryBlue};
   border: 1px solid ${theme.tertiaryBlue};
