@@ -556,6 +556,7 @@ export const Input = styled.input`
     position: relative;
     
    &:focus {
+    background-color: ${theme.white};
     outline-color: ${theme.tertiaryBlue.saturate(0.5)};
   }
   
