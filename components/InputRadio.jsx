@@ -12,6 +12,7 @@ const InputRadioWrapper = styled.label`
   line-height: 22px;
   margin: 10px;
   padding-left: 50px;
+  cursor: pointer;
   
   input:checked,
   input:not(:checked) {
@@ -24,7 +25,6 @@ const InputRadioWrapper = styled.label`
       position: absolute;
       top:0;
       left: 0; 
-      cursor: pointer;
       display: inline-block;
   }
   
@@ -71,7 +71,7 @@ const InputRadioWrapper = styled.label`
 const InputRadio = ({ children, name, checked, onChange }) => (
   <InputRadioWrapper htmlFor={name}>
     <input
-      id="name"
+      id={name}
       type="radio"
       checked={checked}
       onChange={onChange}
