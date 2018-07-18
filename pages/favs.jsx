@@ -56,11 +56,12 @@ class Favs extends React.Component {
           type='search'
           value={result}
           placeholder='Search for fav'
+          disabled={favs.length === 0}
           onChange={e => this.setState({ result: e.target.value.substr(0, 20) })}
         />
         {favs.length === 0 ? (
           <ColumnWrapper style={{ height: '75%' }}>
-            <p>
+            <p style={{fontWeight: 'bold'}}>
               {staticData[2]}
             </p>
           </ColumnWrapper>

@@ -555,6 +555,22 @@ export const Input = styled.input`
     padding-left: 10px;
     position: relative;
     
+   &:focus {
+    outline-color: ${theme.tertiaryBlue.saturate(0.5)};
+  }
+  
+  &:hover {
+    &:not(:disabled) {
+      border: 1px solid ${theme.tertiaryBlue.saturate(0.5)};
+    }
+  }
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity:0.25;
+  }
+    
+    
     &::-webkit-input-placeholder {
       color: ${theme.tertiaryBlue};
     }
