@@ -7,7 +7,7 @@ import theme from '../shared/theme';
 
 
 const Nav = styled.nav`
-    width: 100%;
+    width: calc(100% + 2px);
     height: calc(100% + 2px);
          
     flex-direction: column;

@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import PropTypes from 'prop-types';
 
-import { DisplayWrapper } from './Styles';
+import { ViewWrapper } from './Styles';
 import Box from './Box';
 import Panel from './Panel';
 
 import { FETCH_CURRENT_WEATHER_REQUEST, SET_FAV, SET_UNFAV, setAction } from '../state/actions';
+import theme from '../shared/theme';
 
 const mapStateToProps = (state) => ({
   display: state.displayState,
@@ -29,6 +30,7 @@ class Display extends React.Component {
 
   toggleFav = () => {
     const { display, favs, onSetFav, onSetUnfav } = this.props;
+    console.log(favs.find(fav => fav.latitude === display.latitude && fav.longitude === display.longitude));
 
     if (favs.find(fav => fav.latitude === display.latitude && fav.longitude === display.longitude)) {
       onSetUnfav(display.latitude, display.longitude);
@@ -69,7 +71,12 @@ class Display extends React.Component {
     }
 
     return (
-      <DisplayWrapper>
+      <ViewWrapper
+        background={theme.light}
+        borders="2px 0 0 2px"
+        padding="0"
+        margin="0 0 0 auto"
+      >
         <Box
           icon={display.icon}
           summary={display.summary}
@@ -88,7 +95,7 @@ class Display extends React.Component {
           toggleFav={this.toggleFav}
           fav={isFav}
         />
-      </DisplayWrapper>
+      </ViewWrapper>
     );
   }
 }

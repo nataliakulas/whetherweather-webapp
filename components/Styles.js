@@ -2,24 +2,45 @@ import styled from 'styled-components';
 import theme from '../shared/theme';
 
 export const BackgroundWrapper = styled.div`
-    height: 100vh;
+    height: 100%;
+    min-height: calc(100vh - 80px);
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
-    background-color: ${theme.secondaryBlue};
+    align-items: start;
+    background-color: ${theme.primaryBlue};
     color: ${theme.medium};
-    overflow: hidden;           
+    overflow: hidden;
+    margin-top: 80px;
+    
+    @media (min-width: 992px) {
+        height: 100vh;
+        margin-top: 0;
+        background-color: ${theme.secondaryBlue};
+        align-items: center;
+    }           
 `;
 
 export const ViewWrapper = styled.section`
     width: 100%;
-    height: 525px;
+    max-width: 425px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    background-color: ${theme.primaryBlue};
+    background-color: ${({ background }) => background  }
     border: 1px solid transparent;
-    border-radius: 0 2px 2px 0;
-    padding: 20px;
+    border-radius:2px;
+    margin: 15px auto;
+    padding: 0;
+    
+    @media (min-width: 992px) {
+        height: 525px;
+        border-radius: ${({ borders }) => borders  }
+        padding: ${({ padding }) => padding  }
+        margin: ${({ margin }) => margin  }
+    }      
 `;
 
 export const NavigationWrapper = styled.header`
@@ -61,16 +82,6 @@ export const NavigationWrapper = styled.header`
     }
 `;
 
-export const DisplayWrapper = styled.aside`
-    width: 100%;
-    height: 525px;
-    position: relative;
-    background-color: ${theme.light};  
-    border: 1px solid transparent;
-    border-radius: 2px 0 0 2px;
-    padding: 20px 0;
-`;
-
 export const ListWrapper = styled.div`
   width: 100%;
   height: 340px;
@@ -80,7 +91,11 @@ export const ListWrapper = styled.div`
 
 export const BoxWrapper = styled.div`
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+
+    @media (min-width: 992px) {
+      margin-bottom: 30px;
+    }
 
   > div {
     align-items: center !important;
@@ -90,12 +105,18 @@ export const BoxWrapper = styled.div`
 
 export const PanelWrapper = styled.div`
   width: 85%;
-  height: 165px;
   margin: 0 auto;
-  padding: 20px 45px;
+  padding: 20px 20px;
   background-color: ${theme.primaryBlue};
   border: 1px solid ${theme.primaryBlue};
   border-radius: 2px;
+  margin-bottom: 25px;
+  
+    @media (min-width: 992px) {
+        height: 165px;
+        padding: 20px 45px;
+        margin-bottom: 0;
+    }
 `;
 
 export const ColumnWrapper = styled.div`
@@ -550,9 +571,14 @@ export const SquareButton = styled.button`
 `;
 
 export const Image = styled.img`
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     margin: 10px;
+    
+    @media (min-width: 992px) {
+        width: 100px;
+        height: 100px;
+    }
 `;
 
 export const Input = styled.input`

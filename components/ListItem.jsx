@@ -42,10 +42,10 @@ class ListItem extends React.Component {
     return (
       <ListItemWrapper active={active}>
         <Row style={{ width: '100%', alignItems: 'center', justifyContent: 'space-between' }} nogutter>
-          <Col xs={12} xl={2}>
+          <Col xs={2} xl={2}>
             <SquareButton onClick={toggleFav} disabled={!latitude || !longitude} type="button" active={fav} style={{ marginLeft: 0 }} />
           </Col>
-          <Col xs={12} xl={8}>
+          <Col xs={7} xl={8}>
             <p style={{ fontSize: 14, margin: '0 10px' }}>
               {position[0]}
               {position[1] === 'location' ? ' ' : ', '}
@@ -56,7 +56,7 @@ class ListItem extends React.Component {
               {longitude}
             </p>
           </Col>
-          <Col xs={12} xl={2}>
+          <Col xs={3} xl={2}>
             <Button onClick={showWeather} type='button' style={{fontSize: 12, textTransform:'uppercase'}}>
               Check
             </Button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-grid-system';
+import { Container, Row, Col, ScreenClassRender } from 'react-grid-system';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider, injectGlobal } from 'styled-components';
@@ -12,6 +12,7 @@ import { BackgroundWrapper, ViewWrapper } from './Styles';
 
 import Display from './Display';
 import Navigation from './Navigation';
+import theme from '../shared/theme';
 
 injectGlobal`
    ${styledNormalize}
@@ -47,11 +48,22 @@ injectGlobal`
     }   
     
     h2 {
-       font-size: 18px
+       font-size: 16px;
+       
+        @media (min-width: 992px) {
+            font-size: 18px;
+        }
     }  
     
     p {
+      font-size: 14px;
+      line-height: 20px;
       margin: 10px 0;
+      
+      @media (min-width: 992px) {
+          font-size: 16px;
+          line-height: 26px;
+      }     
     }
 `;
 
@@ -70,19 +82,28 @@ const Layout = ({ children, title }) => (
       </Head>
       <BackgroundWrapper>
         <Container style={{ width: '100%' }}>
-          <Row nogutter>
-            <Col xs={12} xl={5} offset={{ xl: 1 }} style={{ overflow: 'visible' }}>
-              <Display />
-            </Col>
-            <Col xs={12} xl={1} style={{ overflow: 'visible' }}>
-              <Navigation />
-            </Col>
-            <Col xs={12} xl={4} style={{ overflow: 'visible' }}>
-              <ViewWrapper>
-                {children}
-              </ViewWrapper>
-            </Col>
-          </Row>
+          <ScreenClassRender render={screenClass => (
+            <Row nogutter style={{ flexDirection: ['xs', 'sm', 'md'].includes(screenClass) ? 'column-reverse' : 'row' }}>
+              <Col xs={12} lg={6} xl={5} offset={{ xl: 1 }} style={{ overflow: 'visible' }}>
+                <Display />
+              </Col>
+              <Col xs={12} lg={1} style={{ overflow: 'visible' }}>
+                <Navigation />
+              </Col>
+              <Col xs={12} lg={5} xl={4} style={{ overflow: 'visible' }}>
+                <ViewWrapper
+                  background={theme.primaryBlue}
+                  borders="0 2px 2px 0"
+                  padding="30px"
+                  margin="auto"
+                  width="420px"
+                >
+                  {children}
+                </ViewWrapper>
+              </Col>
+            </Row>
+          )}
+          />
         </Container>
       </BackgroundWrapper>
     </div>
