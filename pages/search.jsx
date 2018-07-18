@@ -24,7 +24,7 @@ class Search extends React.Component {
     super(props);
     this.state = {
       selected: '',
-      options: '',
+      options: [],
       items: 'countries',
       sorted: 'ascending'
     };
