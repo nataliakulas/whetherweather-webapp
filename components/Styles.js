@@ -581,11 +581,13 @@ export const Input = styled.input`
     margin: 10px auto;
     padding-left: 10px;
     position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     
    &:focus {
-    background-color: ${theme.white};
-    outline-color: ${theme.tertiaryBlue.saturate(0.5)};
-  }
+      background-color: ${theme.white};
+      outline-color: ${theme.tertiaryBlue.saturate(0.5)};
+    }
   
   &:hover {
     &:not(:disabled) {

@@ -70,7 +70,7 @@ class Display extends React.Component {
             style={{
               borderRadius: ['lg', 'xl'].includes(screenClass) ? '2px 0 0 2px' : '2px',
               padding: ['lg', 'xl'].includes(screenClass) ? '30px' : '0',
-              margin: ['lg', 'xl'].includes(screenClass) ? '0 0 0 auto' : 'auto'
+              margin: ['lg', 'xl'].includes(screenClass) ? '0 0 0 auto' : 'auto auto 25px auto'
             }}
           >
             <Loader src="/static/images/sun.svg" alt="Loading" />
@@ -115,7 +115,7 @@ class Display extends React.Component {
           style={{
             borderRadius: ['lg', 'xl'].includes(screenClass) ? '2px 0 0 2px' : '2px',
             padding: ['lg', 'xl'].includes(screenClass) ? '30px' : '0',
-            margin: ['lg', 'xl'].includes(screenClass) ? '0 0 0 auto' : 'auto'
+            margin: ['lg', 'xl'].includes(screenClass) ? '0 0 0 auto' : 'auto auto 25px auto'
           }}
         >
           <Box
