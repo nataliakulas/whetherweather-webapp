@@ -1,8 +1,28 @@
 {
   "presets": [
-    "react"
+    ["env", {"modules": false}],
+    "react",
+    "es2015"
   ],
   "plugins": [
-    "babel-plugin-styled-components"
-  ]
+    "babel-plugin-styled-components",
+    "transform-es2015-modules-commonjs",
+    "syntax-dynamic-import"
+  ],
+  "env": {
+    "development": {
+      "presets": ["next/babel"],
+      "plugins": [
+        "transform-es2015-modules-commonjs",
+        "dynamic-import-node"
+      ]
+    },
+    "test": {
+      "presets": [["next/babel", "react", "es2015", { "preset-env": { "modules": "commonjs" } }]],
+      "plugins": [
+        "transform-es2015-modules-commonjs",
+        "dynamic-import-node"
+      ]
+    }
+  }
 }
