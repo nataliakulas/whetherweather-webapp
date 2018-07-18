@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="474px" height="474px" viewBox="0 0 474 474" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>star</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="star" fill-rule="nonzero">
+            <path d="M0,236.604205 C0,105.923264 105.928986,0.002861167 236.594668,0.002861167 C367.267026,0.002861167 473.196966,105.924217 473.196966,236.604205 C473.196966,367.266072 367.267026,473.194105 236.594668,473.194105 C105.928986,473.194105 0,367.266072 0,236.604205 Z" id="Shape" fill="#A3D5E0"></path>
+            <polygon id="Shape" fill="#F0EDEE" points="236.766198 92.5110664 280.478272 181.032564 378.174495 195.246132 307.464076 264.147942 324.155411 361.460765 236.766198 315.517266 149.367131 361.460765 166.062945 264.147942 95.3722334 195.246132 193.081893 181.032564"></polygon>
+        </g>
+    </g>
+</svg>
