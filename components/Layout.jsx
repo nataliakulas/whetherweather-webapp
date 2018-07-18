@@ -97,7 +97,7 @@ const Layout = ({ children, title }) => (
                     width="420px"
                     style={{
                       borderRadius: ['lg', 'xl'].includes(screenClass) ? '0 2px 2px 0' : '2px',
-                      padding: ['lg', 'xl'].includes(screenClass) ? '30px' : '0',
+                      padding: ['lg', 'xl'].includes(screenClass) ? '20px' : '0',
                       margin: ['lg', 'xl'].includes(screenClass) ? 'auto' : '15px auto 30px auto'
                     }}
                   >
