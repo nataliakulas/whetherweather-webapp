@@ -23,28 +23,41 @@ export const ViewWrapper = styled.section`
 `;
 
 export const NavigationWrapper = styled.header`
-    width: 100%;
-    height: 525px;
+    width: 100vw;
+    height: 80px;
+
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 10;
+    
     text-align: center;
     background-color: ${theme.secondaryBlue};
-    border: 1px solid transparent;
-                   
-    &::before,
-    &::after {
-        content: ' ';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        background-color: ${theme.tertiaryBlue.saturate(0.35)};
-    }
-        
-    &::before {
-        top:-100%;      
-    }
-    
-    &::after {
-        bottom:-100%;
+
+    @media (min-width: 992px) {
+      width: 100%;
+      height: 525px;
+      
+      position: static;
+      border: 1px solid transparent;
+                    
+      &::before,
+      &::after {
+          content: ' ';
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          background-color: ${theme.tertiaryBlue.saturate(0.35)};
+      }
+          
+      &::before {
+          top:-100%;      
+      }
+      
+      &::after {
+          bottom:-100%;
+      }
     }
 `;
 
