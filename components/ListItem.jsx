@@ -57,7 +57,7 @@ class ListItem extends React.Component {
             </p>
           </Col>
           <Col xs={12} xl={2}>
-            <Button onClick={showWeather} type='button' style={{fontSize: 12}}>
+            <Button onClick={showWeather} type='button' style={{fontSize: 12, textTransform:'uppercase'}}>
               Check
             </Button>
           </Col>

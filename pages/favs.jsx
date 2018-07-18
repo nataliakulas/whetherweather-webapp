@@ -74,7 +74,7 @@ class Favs extends React.Component {
               let latitude = fav.latitude;
               let longitude = fav.longitude;
               let isFav = true;
-              let isActive = display.latitude === fav.latitude && display.longitude && display.latitude;
+              let isActive = display.latitude === fav.latitude && display.longitude === fav.longitude;
 
               countries && countries.forEach(item => {
                 if (fav.latitude === item.latitude && fav.longitude === item.longitude) {
