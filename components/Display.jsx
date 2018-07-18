@@ -1,4 +1,5 @@
 import React from 'react';
+import { ScreenClassRender } from 'react-grid-system';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import PropTypes from 'prop-types';
@@ -71,31 +72,36 @@ class Display extends React.Component {
     }
 
     return (
-      <ViewWrapper
-        background={theme.light}
-        borders="2px 0 0 2px"
-        padding="0"
-        margin="0 0 0 auto"
-      >
-        <Box
-          icon={display.icon}
-          summary={display.summary}
-          temperature={display.temperature}
-          pressure={display.pressure}
-          humidity={display.humidity}
-          cloudCover={display.cloudCover}
-          windSpeed={display.windSpeed}
-          windBearing={display.windBearing}
-        />
-        <Panel
-          capital={capital}
-          country={country}
-          latitude={latitude}
-          longitude={longitude}
-          toggleFav={this.toggleFav}
-          fav={isFav}
-        />
-      </ViewWrapper>
+      <ScreenClassRender render={screenClass => (
+        <ViewWrapper
+          background={theme.light}
+          style={{
+            borderRadius: ['lg', 'xl'].includes(screenClass) ? '2px 0 0 2px'  : '2px',
+            padding: ['lg', 'xl'].includes(screenClass) ? '30px' : '0',
+            margin: ['lg', 'xl'].includes(screenClass) ? '0 0 0 auto' : 'auto'
+          }}
+        >
+          <Box
+            icon={display.icon}
+            summary={display.summary}
+            temperature={display.temperature}
+            pressure={display.pressure}
+            humidity={display.humidity}
+            cloudCover={display.cloudCover}
+            windSpeed={display.windSpeed}
+            windBearing={display.windBearing}
+          />
+          <Panel
+            capital={capital}
+            country={country}
+            latitude={latitude}
+            longitude={longitude}
+            toggleFav={this.toggleFav}
+            fav={isFav}
+          />
+        </ViewWrapper>
+      )}
+      />
     );
   }
 }

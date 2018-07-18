@@ -91,15 +91,20 @@ const Layout = ({ children, title }) => (
                 <Navigation />
               </Col>
               <Col xs={12} lg={5} xl={4} style={{ overflow: 'visible' }}>
-                <ViewWrapper
-                  background={theme.primaryBlue}
-                  borders="0 2px 2px 0"
-                  padding="30px"
-                  margin="auto"
-                  width="420px"
-                >
-                  {children}
-                </ViewWrapper>
+                <ScreenClassRender render={screenClass => (
+                  <ViewWrapper
+                    background={theme.primaryBlue}
+                    width="420px"
+                    style={{
+                      borderRadius: ['lg', 'xl'].includes(screenClass) ? '0 2px 2px 0' : '2px',
+                      padding: ['lg', 'xl'].includes(screenClass) ? '30px' : '0',
+                      margin: ['lg', 'xl'].includes(screenClass) ? 'auto' : '15px auto 30px auto'
+                    }}
+                  >
+                    {children}
+                  </ViewWrapper>
+                )}
+                />
               </Col>
             </Row>
           )}

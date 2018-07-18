@@ -31,15 +31,9 @@ export const ViewWrapper = styled.section`
     position: relative;
     background-color: ${({ background }) => background  }
     border: 1px solid transparent;
-    border-radius:2px;
-    margin: 15px auto;
-    padding: 0;
-    
+     
     @media (min-width: 992px) {
         height: 525px;
-        border-radius: ${({ borders }) => borders  }
-        padding: ${({ padding }) => padding  }
-        margin: ${({ margin }) => margin  }
     }      
 `;
 
@@ -132,13 +126,6 @@ export const RowBetweenWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-`;
-
-export const RowAroundWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
     align-items: center;
 `;
 
