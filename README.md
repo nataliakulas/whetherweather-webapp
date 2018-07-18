@@ -4,8 +4,12 @@ Features:
 - app on start shows weather for your current location (with geolocation),
 - app shows 28 europan capitals, user can filter, sort and choose one of them,
 - capital and current location can be added to favorites,
-- app shows current weather for favorites cities
-- favorites locations are saved in local storage, and can be filtered as well
+- app shows current weather for favorites cities,
+- favorites locations are saved in local storage, and can be filtered as well,
+- loader on main display screen
+
+Stack: NextJS, Redux, Redux-Saga, styled-components and necessary add-on packs and plugins
+Tests with Jest in developement process
 
 ## Setup
 To run this project in dev version, install it locally using npm:
