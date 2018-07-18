@@ -141,7 +141,7 @@ class Search extends React.Component {
               </InputRadio>
             </Col>
           </Row>
-          <Button onClick={this.handleSearch} disabled={!options} type="button" chunk>
+          <Button onClick={this.handleSearch} disabled={!options || !selected} type="button" chunk>
             Check IT!
           </Button>
         </ColumnWrapper>
