@@ -20,6 +20,12 @@ $ npm install
 $ npm run dev
 ```
 
+Then, you have to provide an api key from https://darksky.net/dev (account is free) and create an .env file in local root catalog.
+
+```
+REACT_API_KEY='...api key...'
+```
+
 Author: Natalia Kulas
 
 Credits: Icons made by Roundicons from www.flaticon.com
